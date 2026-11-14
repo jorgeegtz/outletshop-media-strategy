@@ -1,0 +1,11 @@
+{
+  "name": "outletshop-media-strategy-ts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Estrategia de Medios Online y Simulador Financiero en TypeScript para OutletShop (Caso Practico Elogia)",
+  "scripts": {
+    "typecheck": "/opt/homebrew/lib/node_modules/vercel/node_modules/.bin/tsc --noEmit",
+    "build": "/opt/homebrew/lib/node_modules/vercel/node_modules/.bin/tsc --noEmit && /opt/homebrew/lib/node_modules/vercel/node_modules/.bin/tsx src/build.ts",
+    "start": "/opt/homebrew/lib/node_modules/vercel/node_modules/.bin/tsx src/server.ts"
+  }
+}
