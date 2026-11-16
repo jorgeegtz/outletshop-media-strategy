@@ -24,7 +24,7 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
   const rowsHtml = group.lines
     .map((line: MediaChannelLine) => {
       const rmktBadge = line.isRemarketing60d
-        ? ` <span class="tag tag-purple">RMKT CARRITO 60D</span>`
+        ? ` <span class="tag tag-purple">RMKT 60D</span>`
         : '';
       return `
         <tr>
@@ -60,14 +60,14 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
   const subtotalBg = group.block === 'Captación (20%)' ? '#eef2ff' : '#ecfdf5';
   const roasOrNote =
     totalRev > 0
-      ? `<span class="status-ok">ROAS ${(totalRev / group.monthlySpendMxn).toFixed(2)}x</span>`
+      ? `<span class="status-ok">ROAS ${(totalRev / group.monthlySpendMxn).toFixed(2)}</span>`
       : group.id === 'obj1'
       ? '1,148 Reg App (45%)'
-      : '+45% vs. Meta (850)';
+      : '1,236 Leads (5.01% CVR)';
 
   return `
     <tr class="row-anchor">
-      <td colspan="13"><strong>${group.title.toUpperCase()} (${group.sharePct.toFixed(1)}% Presupuesto = ${formatMoney(group.monthlySpendMxn)} MXN | Plataformas: ${group.platformsText} | Meta: ${group.briefTargetLabel})</strong></td>
+      <td colspan="13"><strong>${group.title.toUpperCase()} (${group.sharePct.toFixed(1)}% = ${formatMoney(group.monthlySpendMxn)} MXN | Canales: ${group.platformsText} | Meta: ${group.briefTargetLabel})</strong></td>
     </tr>
     ${rowsHtml}
     <tr style="background:${subtotalBg};font-weight:700;">
@@ -90,15 +90,15 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
 
 export function renderSimulatorHero(out: SimulatorOutputs): string {
   const badgeHtml = out.allGoalsMet
-    ? `<span class="status-ok">4 / 4 METAS CUMPLIDAS</span>`
-    : `<span class="status-warn">AJUSTAR PARÁMETROS</span>`;
+    ? `<span class="status-ok">4 / 4 METAS EN RANGO</span>`
+    : `<span class="status-warn">REVISAR PARÁMETROS</span>`;
   const meterPct = Math.min(100, Math.max(10, (out.roasBlended / 6.0) * 100));
   const meterColor = out.allGoalsMet ? '#047857' : '#b45309';
 
   return `
     <div class="forecast-hero-top">
       <div>
-        <div class="forecast-kicker">Ventas Totales Estimadas (ROAS Global ${out.roasBlended.toFixed(2)}x)</div>
+        <div class="forecast-kicker">Ventas Mensuales Estimadas (ROAS Global ${out.roasBlended.toFixed(2)})</div>
         <div class="forecast-big-cac">${formatMoney(out.totalRevenue, 0)} MXN</div>
       </div>
       ${badgeHtml}
@@ -113,15 +113,15 @@ export function renderSimulatorHero(out: SimulatorOutputs): string {
       </div>
     </div>
     <div class="forecast-sub-row">
-      <span>Obj. 2 App: <strong>ROAS ${out.roasApp.toFixed(2)}x</strong> (${formatInt(out.ordersApp)} ped.)</span>
-      <span>Obj. 3 Web: <strong>ROAS ${out.roasWeb.toFixed(2)}x</strong> (${formatInt(out.ordersWeb)} ped.)</span>
+      <span>Obj. 2 App: <strong>ROAS ${out.roasApp.toFixed(2)}</strong> (${formatInt(out.ordersApp)} ped.)</span>
+      <span>Obj. 3 Web: <strong>ROAS ${out.roasWeb.toFixed(2)}</strong> (${formatInt(out.ordersWeb)} ped.)</span>
     </div>
     <div class="forecast-sub-row" style="margin-top:6px;">
-      <span>Remarketing Carrito 60D: <strong>${formatInt(out.rmkt60dOrders)} pedidos</strong></span>
-      <span>CPA Rmkt 60D: <strong>${formatMoney(out.cpaRmkt60dMxn, 0)} MXN</strong> (ROAS ${out.roasRmkt60d.toFixed(2)}x)</span>
+      <span>Carrito Abandonado 60D: <strong>${formatInt(out.rmkt60dOrders)} pedidos</strong></span>
+      <span>CPA Rmkt 60D: <strong>${formatMoney(out.cpaRmkt60dMxn, 0)} MXN</strong> (ROAS ${out.roasRmkt60d.toFixed(2)})</span>
     </div>
     <div style="font-size:12.5px;color:var(--text-secondary);margin-top:8px;">
-      <strong>Inversión por Objetivo:</strong> Obj. 1: ${formatMoney(out.budgetObj1)} | Obj. 2: ${formatMoney(out.budgetObj2)} | Obj. 3: ${formatMoney(out.budgetObj3)} | Obj. 4: ${formatMoney(out.budgetObj4)}.
+      <strong>Presupuesto por objetivo:</strong> Obj. 1: ${formatMoney(out.budgetObj1)} | Obj. 2: ${formatMoney(out.budgetObj2)} | Obj. 3: ${formatMoney(out.budgetObj3)} | Obj. 4: ${formatMoney(out.budgetObj4)}.
     </div>
   `;
 }
@@ -134,9 +134,11 @@ export function renderAppShell(): string {
         <td>${g.briefMetricName}</td>
         <td><strong>${g.briefTargetLabel}</strong></td>
         <td><strong>${g.sharePct.toFixed(1)}%</strong> (${formatMoney(g.monthlySpendMxn)} MXN)</td>
-        <td><strong>${g.projectedResultLabel}</strong></td>
+        <td>
+          <strong>${g.projectedResultLabel}</strong><br/>
+          <span class="text-muted">${g.complianceSubnote}</span>
+        </td>
         <td>${g.unitCostSummary}</td>
-        <td><span class="status-ok">${g.statusBadge}</span></td>
       </tr>
     `
   ).join('');
@@ -153,7 +155,7 @@ export function renderAppShell(): string {
         <td>${s.tactic}</td>
         <td><strong>${formatInt(s.orders)} pedidos</strong></td>
         <td><strong>${formatMoney(s.cpaMxn, 2)} MXN</strong></td>
-        <td><span class="status-ok">${s.roas.toFixed(2)}x ROAS</span></td>
+        <td><span class="status-ok">ROAS ${s.roas.toFixed(2)}</span></td>
       </tr>
     `
   ).join('');
@@ -185,15 +187,15 @@ export function renderAppShell(): string {
           <div class="brand-logo">O</div>
           <div>
             <div class="brand-title">Caso Práctico: OutletShop</div>
-            <div class="brand-sub">Propuesta de Medios Online | Jorge Gutiérrez</div>
+            <div class="brand-sub">Estrategia de Medios Online | Jorge Gutiérrez</div>
           </div>
         </div>
         <nav class="nav-links" aria-label="Deck Sections">
-          <a href="#executive-summary" data-slide="0" class="active">A. Resumen Ejecutivo</a>
+          <a href="#executive-summary" data-slide="0" class="active">A. Resumen</a>
           <a href="#media-plan" data-slide="1">B. Estimaciones ($850k)</a>
-          <a href="#app-strategy" data-slide="2">C. Estrategia App (Obj. 1 y 2)</a>
-          <a href="#web-strategy" data-slide="3">D. Estrategia Web &amp; Rmkt 60D</a>
-          <a href="#measurement-kpis" data-slide="4">E. KPIs por Objetivo</a>
+          <a href="#app-strategy" data-slide="2">C. Campañas App</a>
+          <a href="#web-strategy" data-slide="3">D. Campañas Web y Rmkt 60D</a>
+          <a href="#measurement-kpis" data-slide="4">E. KPIs</a>
         </nav>
       </div>
     </header>
@@ -203,14 +205,14 @@ export function renderAppShell(): string {
       <div class="deck-slide active" data-slide="0">
         <section id="executive-summary" class="hero">
           <div class="hero-single">
-            <div class="eyebrow">CASO PRÁCTICO ELOGIA | ESTRATEGIA DE MEDIOS ONLINE PARA OUTLETSHOP</div>
-            <h1>Estrategia <span class="gradient-text">20% Captación / 80% Ventas</span> para Generar $3.61M MXN (ROAS 6.8 App | ROAS 3.4 Web)</h1>
+            <div class="eyebrow">CASO PRÁCTICO | ESTRATEGIA DE MEDIOS ONLINE PARA OUTLETSHOP</div>
+            <h1>Distribución <span class="gradient-text">20% Captación / 80% Ventas</span> para Llegar a ROAS 6.8 en App y 3.4 en Web</h1>
             <p class="hero-lead">
-              Propuesta para distribuir los <strong>$850,000 MXN mensuales</strong> (con AOV actual de <strong>$850 MXN</strong> en App y Sitio Web) enfocada en hombres y mujeres de 18 a 50 años en México interesados en moda, calzado, accesorios, ofertas y compras online.
+              OutletShop maneja un presupuesto mensual de <strong>$850,000 MXN</strong> y un ticket promedio (AOV) de <strong>$850 MXN</strong> tanto en web como en app. Como las metas de volumen que pide el ejercicio (1,300 descargas y 850 registros) son relativamente bajas para ese presupuesto, asignamos el <strong>20% ($170,000 MXN)</strong> a captación y concentramos el <strong>80% ($680,000 MXN)</strong> en campañas de venta y remarketing.
             </p>
             <div class="hero-cta-row">
               <a href="${GOOGLE_SHEET_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-                Abrir Google Sheet de Estimaciones
+                Ver Google Sheet con Estimaciones
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </a>
             </div>
@@ -218,24 +220,24 @@ export function renderAppShell(): string {
 
           <div class="grid-2" style="margin-top: 24px;">
             <div class="panel panel-accent">
-              <h3>1. Captación de Usuarios: 20% ($170,000 MXN)</h3>
+              <h3>1. Captación (20% del presupuesto = $170,000 MXN)</h3>
               <ul class="styled-list">
-                <li><strong>Obj. 1 - Descargas y Engagement App (12% | $102,000 MXN):</strong> En Facebook, Instagram, Google Ads, TikTok y DSP. Genera <strong>2,550 descargas a $40.00 MXN CPI</strong> (superando en +96% la meta de 1,300 descargas) y <strong>1,148 registros en la app</strong> (45% CVR).</li>
-                <li><strong>Obj. 4 - Registros en el Sitio Web (8% | $68,000 MXN):</strong> En Google Display, Facebook Ads, Instagram Ads y DSP. Genera <strong>1,236 leads cualificados a $55.02 MXN CPL</strong> (superando en +45% la meta de 850 leads) con 5.00% de conversión de visita a registro.</li>
-                <li><strong>Por qué 20% en Captación:</strong> Con $170,000 MXN cubrimos y superamos ampliamente las metas de volumen de descargas y leads, liberando el 80% del presupuesto para maximizar ingresos donde el brief exige ROAS altos.</li>
+                <li><strong>Descargas de App (12% | $102,000 MXN):</strong> En México un CPI promedio para retail/moda ronda los $40 MXN. Con este presupuesto cerramos en <strong>2,550 descargas</strong> (casi el doble de las 1,300 que pide la tabla) y <strong>1,148 usuarios registrados dentro de la app</strong>.</li>
+                <li><strong>Registros en Sitio Web (8% | $68,000 MXN):</strong> Con un CPL estimado de $55.02 MXN en Facebook, Instagram, Display y DSP, generamos <strong>1,236 leads cualificados</strong> (arriba de los 850 solicitados).</li>
+                <li><strong>Por qué no meter más del 20% aquí:</strong> Meter más dinero a instalaciones o registros bajaría el retorno global porque son campañas que no cobran en el momento; con el 20% cumplimos sobrados ambas metas y alimentamos las audiencias de remarketing.</li>
               </ul>
             </div>
             <div class="panel">
-              <h3>2. Generación de Ventas y Remarketing 60D: 80% ($680,000 MXN)</h3>
+              <h3>2. Ventas en App y Web (80% del presupuesto = $680,000 MXN)</h3>
               <ul class="styled-list">
-                <li><strong>Obj. 2 - Promoción de Ventas en App (45% | $382,500 MXN):</strong> En Google Ads, Facebook, Instagram, TikTok y DSP. Cumple el <strong>ROAS 6.80x</strong> generando <strong>$2,601,000 MXN (3,060 pedidos a $125.00 MXN CPA y 2.40% CVR en app)</strong>.</li>
-                <li><strong>Obj. 3 - Incentivar Ventas en Sitio Web (35% | $297,500 MXN):</strong> En Google Search Ads, Email Marketing, Facebook y Display. Cumple el <strong>ROAS 3.40x</strong> generando <strong>$1,011,500 MXN (1,190 pedidos a $250.00 MXN CPA global y 1.20% CVR web)</strong>.</li>
-                <li><strong>Campaña de Remarketing Carrito Abandonado (Últimos 60 Días):</strong> Integra audiencias que abandonaron el carrito y no compraron en los últimos 60 días (App + Web + Email), recuperando <strong>1,270 pedidos a un CPA de $139.07 MXN (ROAS 6.11x)</strong>.</li>
+                <li><strong>Ventas dentro de la App (45% | $382,500 MXN):</strong> Con un AOV de $850 MXN, para dar un <strong>ROAS de 6.8</strong> necesitamos que cada pedido en la app cueste en promedio <strong>$125 MXN</strong> (<code>$850 / 6.8 = $125</code>). Eso equivale a <strong>3,060 pedidos y $2,601,000 MXN en ventas</strong>.</li>
+                <li><strong>Ventas en el Sitio Web (35% | $297,500 MXN):</strong> Para dar un <strong>ROAS de 3.4</strong> con el mismo ticket de $850 MXN, el CPA web debe quedar en <strong>$250 MXN</strong> (<code>$850 / 3.4 = $250</code>), generando <strong>1,190 pedidos y $1,011,500 MXN en ventas</strong>.</li>
+                <li><strong>Remarketing de Carritos Abandonados (60 días):</strong> Tanto en App como en Web incluimos una campaña específica para quienes agregaron productos al carrito pero no compraron en los últimos 60 días ($176,625 MXN en total, recuperando 1,270 pedidos a $139.07 MXN de CPA).</li>
               </ul>
             </div>
           </div>
 
-          <h3 class="sub-heading" style="margin-top: 24px;">Resultados Esperados (Tabla del Caso Práctico vs. Estimación Propuesta)</h3>
+          <h3 class="sub-heading" style="margin-top: 24px;">Resultados Esperados</h3>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
@@ -246,31 +248,32 @@ export function renderAppShell(): string {
                   <th>Presupuesto Asignado</th>
                   <th>Resultado Estimado</th>
                   <th>KPIs Estimados</th>
-                  <th>Cumplimiento</th>
                 </tr>
               </thead>
               <tbody>
                 ${summaryRows}
                 <tr class="row-goal">
                   <td><strong>TOTAL MENSUAL OUTLETSHOP</strong></td>
-                  <td>Full-Funnel (App + Web)</td>
+                  <td>App + Sitio Web</td>
                   <td><strong>4 Objetivos</strong></td>
                   <td><strong>100.0%</strong> ($850,000 MXN)</td>
-                  <td><strong>$3,612,500 MXN en Ventas</strong><br/><span class="text-muted">4,250 pedidos + 2,550 descargas + 1,236 leads</span></td>
-                  <td>ROAS Global: <strong>4.25x</strong> | ROAS Ventas: <strong>5.31x</strong><br/>18.68M Impresiones | 293,863 Clics</td>
-                  <td><span class="status-ok">4 / 4 Metas Cumplidas</span></td>
+                  <td>
+                    <strong>$3,612,500 MXN en Ventas (4,250 pedidos)</strong><br/>
+                    <span class="text-muted">Nota: Se cumplen los ROAS de 6.8 (App) y 3.4 (Web) y se superan las metas de descargas (2,550 vs. 1,300) y leads (1,236 vs. 850).</span>
+                  </td>
+                  <td>ROAS Global: <strong>4.25</strong> | ROAS Ventas: <strong>5.31</strong><br/>18.68M Impresiones | 293,863 Clics</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="assumptions-banner">
-            <div class="assumptions-title">Datos Base del Caso Práctico:</div>
+            <div class="assumptions-title">Datos Base del Ejercicio:</div>
             <div class="assumptions-pills">
               <span><strong>Presupuesto Mensual:</strong> $850,000 MXN</span>
               <span><strong>AOV Actual (Web y App):</strong> $850 MXN</span>
               <span><strong>Público Objetivo:</strong> Hombres y Mujeres 18-50 años en México (Moda, Ofertas y Compras Online)</span>
-              <span><strong>Relación ROAS / CPA (con AOV $850):</strong> ROAS 6.8 App = $125 CPA | ROAS 3.4 Web = $250 CPA</span>
+              <span><strong>CPA Objetivo (con AOV $850):</strong> $125 MXN en App (ROAS 6.8) y $250 MXN en Web (ROAS 3.4)</span>
             </div>
           </div>
         </section>
@@ -281,9 +284,9 @@ export function renderAppShell(): string {
         <section id="media-plan" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCIÓN B | ESTIMACIONES NUMÉRICAS Y PLAN DE MEDIOS ($850,000 MXN)</span>
-              <h2>Desglose de Estimaciones por Objetivo y Plataforma</h2>
-              <p>Cálculo detallado de inversión, CPM, impresiones, CTR, clics, CPC, tasa de conversión (CVR), volumen de resultados, CPI/CPL/CPA, ingresos (con AOV de $850 MXN) y ROAS.</p>
+              <span class="section-tag">SECCIÓN B | ESTIMACIONES Y DISTRIBUCIÓN DEL PRESUPUESTO ($850,000 MXN)</span>
+              <h2>Estimaciones Mensuales por Objetivo y Plataforma</h2>
+              <p>Desglose de inversión, impresiones, clics, tasas de conversión, costos por resultado (CPI, CPL, CPA), ventas e ingresos considerando el AOV de $850 MXN.</p>
             </div>
           </div>
 
@@ -321,7 +324,7 @@ export function renderAppShell(): string {
                   <td><strong>4,250 Pedidos</strong></td>
                   <td><strong>$160.00 CPA Ventas</strong></td>
                   <td><strong>$3,612,500</strong></td>
-                  <td><strong>ROAS 4.25x</strong></td>
+                  <td><strong>ROAS 4.25</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -330,27 +333,27 @@ export function renderAppShell(): string {
           <!-- Simulador de Estimaciones -->
           <div class="grid-2" style="margin-top: 24px;">
             <div class="panel">
-              <h3>Racional de las Estimaciones</h3>
+              <h3>Cómo construimos las estimaciones</h3>
               <ul class="styled-list">
-                <li><strong>Matemática exacta del ROAS con AOV de $850 MXN:</strong>
-                  <br/>- En <strong>App (ROAS 6.8)</strong>: <code>$850 AOV / 6.8 = $125.00 MXN CPA máximo</code>. Con $382,500 MXN generamos <strong>3,060 pedidos ($2,601,000 MXN)</strong>.
-                  <br/>- En <strong>Sitio Web (ROAS 3.4)</strong>: <code>$850 AOV / 3.4 = $250.00 MXN CPA máximo</code>. Con $297,500 MXN generamos <strong>1,190 pedidos ($1,011,500 MXN)</strong>.
+                <li><strong>Cálculo directo desde el AOV ($850 MXN):</strong>
+                  <br/>- En la App nos piden <strong>ROAS 6.8</strong>, lo que obliga a comprar pedidos a <strong>$125 MXN de CPA promedio</strong>. Con $382,500 MXN salen <strong>3,060 pedidos ($2,601,000 MXN)</strong>.
+                  <br/>- En el Sitio Web nos piden <strong>ROAS 3.4</strong>, por lo que el CPA promedio debe ser de <strong>$250 MXN</strong>. Con $297,500 MXN salen <strong>1,190 pedidos ($1,011,500 MXN)</strong>.
                 </li>
-                <li><strong>Benchmarks de México (Retail / Moda):</strong> CPMs entre $30 y $62.50 MXN, CTRs de 0.80% a 2.20%, CPI en App de $40.00 MXN y CPL en Sitio Web de $55.02 MXN.</li>
-                <li><strong>Eficiencia por Remarketing 60D:</strong> Las campañas de Carrito Abandonado (60 días sin compra) operan con CVR superior (3.70% en App y 2.62% en Web), reduciendo el CPA promedio y asegurando las metas de ROAS.</li>
+                <li><strong>Costos de mercado en México:</strong> Consideramos CPMs entre $30 y $62.50 MXN (más alto en Google Search por intención de compra y más bajo en TikTok/Display), logrando CPCs alrededor de $2.89 MXN.</li>
+                <li><strong>Por qué funciona el CPA en App y Web:</strong> La prospección en frío suele tener CPAs más altos (por ejemplo $423 MXN en Facebook Web), pero al combinarla con Google Search ($232 CPA) y con las campañas de Remarketing de Carritos Abandonados de 60 días ($112.50 CPA en App y $190.67 CPA en Web), el promedio cierra en meta.</li>
               </ul>
             </div>
 
             <div class="panel panel-accent">
               <div class="forecast-header">
                 <div>
-                  <h3 style="margin-bottom:4px;">Simulador de Estimaciones (TypeScript)</h3>
-                  <p style="font-size:13px;color:var(--text-secondary);">Prueba cambios en presupuesto, split, AOV o CPI:</p>
+                  <h3 style="margin-bottom:4px;">Calculadora de Escenarios (TypeScript)</h3>
+                  <p style="font-size:13px;color:var(--text-secondary);">Mueve los valores para ver cómo cambian las metas:</p>
                 </div>
                 <div class="preset-row">
-                  <button type="button" class="preset-btn active" data-preset="baseline">Propuesta Base ($850k)</button>
-                  <button type="button" class="preset-btn" data-preset="aov_boost">Subir AOV a $950</button>
-                  <button type="button" class="preset-btn" data-preset="rmkt_focus">+Peso Rmkt 60D</button>
+                  <button type="button" class="preset-btn active" data-preset="baseline">Escenario Base ($850k)</button>
+                  <button type="button" class="preset-btn" data-preset="aov_boost">Ticket de $950</button>
+                  <button type="button" class="preset-btn" data-preset="rmkt_focus">+Peso a Rmkt 60D</button>
                 </div>
               </div>
 
@@ -403,24 +406,24 @@ export function renderAppShell(): string {
         <section id="app-strategy" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCIÓN C | ESTRATEGIA PARA LA APLICACIÓN MÓVIL (OBJETIVOS 1 Y 2)</span>
-              <h2>1. Descargas y Engagement App + 2. Promoción de Ventas dentro de la App</h2>
-              <p>Estrategia en Facebook, Instagram, Google Ads, TikTok y DSP para lograr 2,550 descargas ($40 CPI) y ROAS 6.8x en ventas dentro de la aplicación.</p>
+              <span class="section-tag">SECCIÓN C | CAMPAÑAS PARA LA APLICACIÓN MÓVIL (OBJETIVOS 1 Y 2)</span>
+              <h2>1. Descargas y Engagement App + 2. Promoción de Ventas en App</h2>
+              <p>Planteamiento en Facebook, Instagram, Google Ads, TikTok y DSP para cubrir las descargas y alcanzar el ROAS de 6.8 dentro de la aplicación.</p>
             </div>
           </div>
 
           <div class="grid-2">
             <div class="panel panel-accent">
-              <h3>1. Campañas de Descargas y Engagement App ($102,000 MXN | 12%)</h3>
+              <h3>1. Descargas y Engagement para la Aplicación ($102,000 MXN | 12%)</h3>
               <p><strong>Plataformas:</strong> Facebook, Instagram, Google Ads, TikTok y DSP.</p>
               <ul class="styled-list">
-                <li><strong>Objetivo y Meta:</strong> Superar las 1,300 descargas llegando a <strong>2,550 descargas a $40.00 MXN CPI</strong>, asegurando además que el <strong>45% se registre en la app (1,148 registros)</strong>.</li>
-                <li><strong>Configuración por Canal:</strong>
-                  <br/>- <strong>Google Ads ($40,800):</strong> App Campaigns (UAC) optimizadas a instalación y primer registro en Android e iOS (1,100 descargas a $37.09 CPI).
-                  <br/>- <strong>Facebook e Instagram ($35,700):</strong> Campañas de App Promotion segmentadas a Hombres y Mujeres 18-50 en México interesados en calzado, ropa familiar y ofertas (880 descargas a $40.57 CPI).
-                  <br/>- <strong>TikTok ($15,300) y DSP ($10,200):</strong> Videos cortos de "Unboxing familiar Outlet" y banners en apps de estilo de vida (570 descargas conjuntas).
+                <li><strong>Meta:</strong> El brief pide 1,300 descargas. Con $102,000 MXN a un CPI promedio de $40 MXN logramos <strong>2,550 descargas</strong> y <strong>1,148 registros dentro de la app</strong> (45% de los que instalan).</li>
+                <li><strong>Rol de cada plataforma:</strong>
+                  <br/>- <strong>Google Ads ($40,800):</strong> Campañas UAC enfocadas en usuarios que ya buscan apps de ropa, calzado u ofertas en Play Store y App Store (1,100 descargas a $37.09 CPI).
+                  <br/>- <strong>Facebook e Instagram ($35,700):</strong> Campañas de instalación segmentadas a hombres y mujeres de 18 a 50 años en México con interés en calzado, ropa familiar y compras online (880 descargas a $40.57 CPI).
+                  <br/>- <strong>TikTok ($15,300) y DSP ($10,200):</strong> Videos cortos mostrando cambios de look o paquetes familiares por menos de $850 MXN y formatos de video en otras apps (570 descargas entre ambos).
                 </li>
-                <li><strong>Palanca de Engagement (Registro):</strong> Beneficio exclusivo de <em>"$150 MXN de descuento en tu primera compra en la App"</em> que se desbloquea al completar el registro en 1 clic.</li>
+                <li><strong>Cómo subimos el registro después de descargar:</strong> Damos un cupón de $150 MXN para la primera compra en la app, pero pedimos iniciar sesión con Google, Apple o Facebook en un clic para activarlo.</li>
               </ul>
             </div>
 
@@ -428,14 +431,14 @@ export function renderAppShell(): string {
               <h3>2. Promoción de Ventas dentro de la App ($382,500 MXN | 45%)</h3>
               <p><strong>Plataformas:</strong> Google Ads, Facebook, Instagram, TikTok y DSP.</p>
               <ul class="styled-list">
-                <li><strong>Objetivo y Meta:</strong> Alcanzar un <strong>ROAS de 6.80x ($2,601,000 MXN en ventas / 3,060 pedidos)</strong> manteniendo una <strong>CVR en app del 2.40%</strong> y un <strong>CPA de $125.00 MXN</strong>.</li>
-                <li><strong>Configuración por Canal:</strong>
-                  <br/>- <strong>Google Ads ($130,050):</strong> App Campaigns for Engagement/Action enfocadas en compra in-app con feed de productos (1,045 pedidos, ROAS 6.83x).
-                  <br/>- <strong>Facebook e Instagram ($99,450):</strong> Anuncios de catálogo dinámico con Deep Link directo a la prenda o calzado en la app (755 pedidos, ROAS 6.45x).
-                  <br/>- <strong>Remarketing Carrito 60D en App ($95,625 en FB/IG + DSP):</strong> Impacta usuarios que agregaron al carrito en la app pero no compraron en los últimos 60 días (850 pedidos a $112.50 CPA, ROAS 7.56x).
-                  <br/>- <strong>TikTok ($57,375):</strong> Video Shopping Ads conectados al catálogo in-app (410 pedidos, ROAS 6.07x).
+                <li><strong>Meta:</strong> Llegar a <strong>ROAS 6.80 ($2,601,000 MXN en ventas / 3,060 pedidos)</strong> con una conversión en app del <strong>2.40%</strong> y un CPA de <strong>$125 MXN</strong>.</li>
+                <li><strong>Rol de cada plataforma:</strong>
+                  <br/>- <strong>Google Ads ($130,050):</strong> UAC optimizado al evento de compra in-app con feed de productos (1,045 pedidos, ROAS 6.83).
+                  <br/>- <strong>Facebook e Instagram ($99,450):</strong> Anuncios de catálogo con deep link para que al hacer clic en un par de zapatos se abra directamente ese producto dentro de la app (755 pedidos, ROAS 6.45).
+                  <br/>- <strong>Remarketing Carrito 60D en App ($95,625 en FB/IG + DSP):</strong> Campaña dirigida a quienes agregaron al carrito en la app pero no compraron en los últimos 60 días (850 pedidos a $112.50 CPA, ROAS 7.56).
+                  <br/>- <strong>TikTok ($57,375):</strong> Anuncios de catálogo en video para usuarios que ya tienen la app instalada (410 pedidos, ROAS 6.07).
                 </li>
-                <li><strong>Defensa de AOV ($850 MXN) y Compras Recurrentes (1,285 pedidos):</strong> Barra de envío gratis a partir de $899 MXN para impulsar el ticket promedio, y notificaciones push + remarketing en quincena para generar 42% de recompra.</li>
+                <li><strong>Recompras y cuidado del ticket ($850 MXN):</strong> Para no perder AOV en artículos rebajados, ponemos envío gratis a partir de $899 MXN (lo que empuja a sumar un segundo artículo) y trabajamos notificaciones push en quincena para lograr <strong>1,285 compras recurrentes</strong>.</li>
               </ul>
             </div>
           </div>
@@ -447,9 +450,9 @@ export function renderAppShell(): string {
         <section id="web-strategy" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCIÓN D | ESTRATEGIA SITIO WEB (OBJETIVOS 3 Y 4) + REMARKETING CARRITO 60 DÍAS</span>
-              <h2>3. Incentivar Ventas en Sitio Web + 4. Incrementar Registros Web</h2>
-              <p>Combinación de captura de demanda en Google Search, Email Marketing, Facebook, Instagram, Display y DSP junto con la campaña de Remarketing de Carritos Abandonados (60 días).</p>
+              <span class="section-tag">SECCIÓN D | CAMPAÑAS PARA EL SITIO WEB (OBJETIVOS 3 Y 4) Y REMARKETING 60 DÍAS</span>
+              <h2>3. Ventas en el Sitio Web + 4. Registros Web + Carritos Abandonados (60 Días)</h2>
+              <p>Uso de Google Search, Email Marketing, Facebook, Instagram, Display y DSP para lograr el ROAS de 3.4 en web y captar más de 850 leads cualificados.</p>
             </div>
           </div>
 
@@ -458,10 +461,10 @@ export function renderAppShell(): string {
               <h3>3. Incentivar Ventas en el Sitio Web ($297,500 MXN | 35%)</h3>
               <p><strong>Plataformas:</strong> Google Search Ads, Email Marketing, Facebook y Display.</p>
               <ul class="styled-list">
-                <li><strong>Meta:</strong> Lograr <strong>ROAS 3.40x ($1,011,500 MXN / 1,190 pedidos)</strong> con una <strong>tasa de conversión web del 1.20%</strong>.</li>
-                <li><strong>Google Search Ads ($133,875 | ROAS 3.65x):</strong> Campañas de búsqueda por marca, categorías de alta intención ("outlet calzado méxico", "tenis en oferta", "ropa para niños") y Shopping, generando <strong>575 pedidos a $232.83 CPA</strong>.</li>
-                <li><strong>Facebook Ads Prospección ($82,625):</strong> Campañas de catálogo para atraer nuevos compradores al sitio web (195 pedidos).</li>
-                <li><strong>Remarketing Carrito 60D en Facebook, Display y Email ($81,000):</strong> Recupera <strong>420 pedidos a un CPA promedio de remarketing de $192.86 MXN</strong> ($190.67 en Ads y $198.33 en Email Marketing con ROAS de 4.46x y 4.29x).</li>
+                <li><strong>Meta:</strong> Cerrar en <strong>ROAS 3.40 ($1,011,500 MXN / 1,190 pedidos)</strong> con una conversión en el sitio del <strong>1.20%</strong>.</li>
+                <li><strong>Google Search Ads ($133,875 | ROAS 3.65):</strong> Es el canal más fuerte en web porque captura gente buscando "outlet de calzado", "tenis en oferta" o marcas específicas. Genera <strong>575 pedidos a $232.83 CPA</strong>.</li>
+                <li><strong>Facebook Ads Prospección ($82,625):</strong> Campañas de catálogo para llevar tráfico nuevo al sitio web (195 pedidos).</li>
+                <li><strong>Remarketing Carrito 60D en Facebook, Display y Email ($81,000):</strong> Recupera a los usuarios que dejaron carrito sin comprar en los últimos 60 días, aportando <strong>420 pedidos con un CPA promedio de remarketing de $192.86 MXN</strong> ($190.67 en pauta y $198.33 en Email Marketing).</li>
               </ul>
             </div>
 
@@ -469,32 +472,32 @@ export function renderAppShell(): string {
               <h3>4. Incrementar Registros en el Sitio Web ($68,000 MXN | 8%)</h3>
               <p><strong>Plataformas:</strong> Google Display, Facebook Ads, Instagram Ads y DSP.</p>
               <ul class="styled-list">
-                <li><strong>Meta:</strong> Superar los 850 leads llegando a <strong>1,236 leads cualificados a un CPL de $55.02 MXN</strong> y una <strong>CVR de visitante a registro del 5.00%</strong>.</li>
-                <li><strong>Propuesta de Valor (Lead Magnet):</strong> Registro al <em>"Club OutletShop"</em> ofreciendo un cupón de 15% de descuento adicional en la primera compra y acceso anticipado a ofertas familiares.</li>
-                <li><strong>Distribución por Canal:</strong>
-                  <br/>- <strong>Facebook Ads ($27,200) e Instagram Ads ($20,400):</strong> Anuncios orientados a conversión en landing de registro (920 leads a $50.37-$53.68 CPL).
-                  <br/>- <strong>Google Display ($12,240) y DSP ($8,160):</strong> Segmentación por intención de compra en moda y ofertas online en México (316 leads).
+                <li><strong>Meta:</strong> El brief pide 850 leads cualificados. Con $68,000 MXN a un CPL de $55.02 MXN proyectamos <strong>1,236 registros completados</strong> convirtiendo al <strong>5.01%</strong> de los visitantes.</li>
+                <li><strong>Gancho de registro:</strong> Ofrecer un 15% de descuento adicional en la primera compra al registrarse en el sitio eligiendo qué categoría compran más (Mujer, Hombre o Niños).</li>
+                <li><strong>Reparto por canal:</strong>
+                  <br/>- <strong>Facebook ($27,200) e Instagram ($20,400):</strong> Llevan el 70% del presupuesto del objetivo porque tienen mejor conversión a formulario (920 leads entre ambos a $50-$54 CPL).
+                  <br/>- <strong>Google Display ($12,240) y DSP ($8,160):</strong> Apoyan con audiencias interesadas en moda y ofertas en México (316 leads).
                 </li>
-                <li><strong>Conexión con Ventas Web:</strong> Todo usuario registrado recibe en automático la secuencia de bienvenida por Email Marketing (Obj. 3) para convertirlo en comprador.</li>
+                <li><strong>Paso a venta:</strong> En cuanto dejan su correo, entran a los envíos de Email Marketing del Objetivo 3 para usar su cupón.</li>
               </ul>
             </div>
           </div>
 
-          <h3 class="sub-heading">Detalle de la Campaña de Remarketing: Carritos Abandonados (Últimos 60 Días sin Compra)</h3>
+          <h3 class="sub-heading">Campaña de Remarketing: Audiencia de Carrito Abandonado (Últimos 60 Días sin Compra)</h3>
           <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">
-            Audiencia compuesta por usuarios en App y Web que agregaron productos al carrito en los últimos 60 días pero no finalizaron la compra (excluyendo compradores de los últimos 60 días). Cubre 4 quincenas completas en México:
+            En calzado y ropa mucha gente arma su carrito para ver cuánto sale con envío y espera a la quincena para pagar. Usar una ventana de 60 días (excluyendo a quienes ya compraron) nos permite cubrir 4 quincenas seguidas en México:
           </p>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Segmento de Carrito Abandonado</th>
-                  <th>Ventana de Tiempo</th>
-                  <th>Canales Activos</th>
+                  <th>Etapa de la Audiencia (60D)</th>
+                  <th>Ventana</th>
+                  <th>Canales</th>
                   <th>Inversión (MXN)</th>
-                  <th>Mensaje y Táctica Comercial</th>
+                  <th>Qué mostramos en el anuncio</th>
                   <th>Pedidos</th>
-                  <th>CPA Logrado</th>
+                  <th>CPA</th>
                   <th>ROAS</th>
                 </tr>
               </thead>
@@ -505,10 +508,10 @@ export function renderAppShell(): string {
                   <td><strong>1 a 60 Días (Sin Compra)</strong></td>
                   <td><strong>App (FB/IG/DSP) + Web (FB/Display/Email)</strong></td>
                   <td><strong>$176,625 MXN</strong></td>
-                  <td><strong>Recuperación omnicanal en 4 quincenas</strong></td>
+                  <td><strong>Audiencia acumulada de 60 días excluyendo compradores</strong></td>
                   <td><strong>1,270 pedidos</strong></td>
                   <td><strong>$139.07 MXN</strong></td>
-                  <td><strong>6.11x ROAS</strong></td>
+                  <td><strong>ROAS 6.11</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -521,9 +524,9 @@ export function renderAppShell(): string {
         <section id="measurement-kpis" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCIÓN E | KPIS DEL CASO PRÁCTICO Y PLAN DE CONTROL</span>
-              <h2>Cumplimiento de los KPIs Solicitados por Objetivo</h2>
-              <p>Resumen de cada KPI requerido en el brief de OutletShop, su estimación en nuestro plan y la táctica puntual para alcanzarlo.</p>
+              <span class="section-tag">SECCIÓN E | KPIS SOLICITADOS EN EL EJERCICIO</span>
+              <h2>Desglose de KPIs por Objetivo</h2>
+              <p>Valor estimado para cada uno de los indicadores que pide el caso práctico y cómo lo cuidamos en la operación diaria.</p>
             </div>
           </div>
 
@@ -536,7 +539,7 @@ export function renderAppShell(): string {
       <!-- Deck Slide Navigation Bar -->
       <div class="deck-footer-nav">
         <button id="btn-prev-slide" class="btn btn-secondary">Slide Anterior</button>
-        <div id="deck-slide-label" class="deck-slide-indicator">Slide <strong>1 / 5</strong> | A. Resumen Ejecutivo</div>
+        <div id="deck-slide-label" class="deck-slide-indicator">Slide <strong>1 / 5</strong> | A. Resumen</div>
         <button id="btn-next-slide" class="btn btn-primary">Siguiente Slide</button>
       </div>
     </main>
@@ -544,7 +547,7 @@ export function renderAppShell(): string {
     <footer class="footer">
       <div class="container footer-inner">
         <div>
-          <strong>Caso Práctico OutletShop (Elogia)</strong> | por Jorge Gutiérrez (<a href="mailto:jorgeegtzhdz@gmail.com">jorgeegtzhdz@gmail.com</a>)
+          <strong>Caso Práctico OutletShop</strong> | Jorge Gutiérrez (<a href="mailto:jorgeegtzhdz@gmail.com">jorgeegtzhdz@gmail.com</a>)
         </div>
         <div>
           <a href="${GOOGLE_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir Google Sheet de Estimaciones</a>

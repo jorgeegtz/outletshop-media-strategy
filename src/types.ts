@@ -35,8 +35,8 @@ export interface ObjectiveGroup {
   briefMetricName: string;
   briefTargetLabel: string;
   projectedResultLabel: string;
+  complianceSubnote: string;
   unitCostSummary: string;
-  statusBadge: string;
   lines: MediaChannelLine[];
 }
 
