@@ -257,7 +257,7 @@ export function renderAppShell(): string {
                   <td><strong>4 Objetivos</strong></td>
                   <td><strong>100.0%</strong> ($850,000 MXN)</td>
                   <td><strong>$3,612,500 MXN en Ventas</strong><br/><span class="text-muted">4,250 pedidos + 2,550 descargas + 1,236 leads</span></td>
-                  <td>ROAS Global: <strong>4.25x</strong> | ROAS Ventas: <strong>5.31x</strong><br/>18.71M Impresiones | 284.8k Clics</td>
+                  <td>ROAS Global: <strong>4.25x</strong> | ROAS Ventas: <strong>5.31x</strong><br/>18.68M Impresiones | 293,863 Clics</td>
                   <td><span class="status-ok">4 / 4 Metas Cumplidas</span></td>
                 </tr>
               </tbody>
@@ -312,14 +312,14 @@ export function renderAppShell(): string {
                   <td><strong>TOTAL PLAN DE MEDIOS</strong></td>
                   <td><strong>$850,000</strong></td>
                   <td><strong>100.0%</strong></td>
-                  <td><strong>$45.44</strong></td>
-                  <td><strong>18,708,856</strong></td>
-                  <td><strong>1.52%</strong></td>
-                  <td><strong>284,791</strong></td>
-                  <td><strong>$2.98</strong></td>
-                  <td><strong>-</strong></td>
+                  <td><strong>$45.51</strong></td>
+                  <td><strong>18,676,625</strong></td>
+                  <td><strong>1.57%</strong></td>
+                  <td><strong>293,863</strong></td>
+                  <td><strong>$2.89</strong></td>
+                  <td><strong>1.87% (Ventas)</strong></td>
                   <td><strong>4,250 Pedidos</strong></td>
-                  <td><strong>$160 CPA Ventas</strong></td>
+                  <td><strong>$160.00 CPA Ventas</strong></td>
                   <td><strong>$3,612,500</strong></td>
                   <td><strong>ROAS 4.25x</strong></td>
                 </tr>
@@ -336,8 +336,8 @@ export function renderAppShell(): string {
                   <br/>- En <strong>App (ROAS 6.8)</strong>: <code>$850 AOV / 6.8 = $125.00 MXN CPA máximo</code>. Con $382,500 MXN generamos <strong>3,060 pedidos ($2,601,000 MXN)</strong>.
                   <br/>- En <strong>Sitio Web (ROAS 3.4)</strong>: <code>$850 AOV / 3.4 = $250.00 MXN CPA máximo</code>. Con $297,500 MXN generamos <strong>1,190 pedidos ($1,011,500 MXN)</strong>.
                 </li>
-                <li><strong>Benchmarks de México (Retail / Moda):</strong> CPMs entre $32 y $65 MXN, CTRs de 0.71% a 2.30%, CPI en App de $40.00 MXN y CPL en Sitio Web de $55.02 MXN.</li>
-                <li><strong>Eficiencia por Remarketing 60D:</strong> Las campañas de Carrito Abandonado (60 días sin compra) operan con CVR superior (3.85% en App y 2.65% en Web), reduciendo el CPA promedio y asegurando las metas de ROAS.</li>
+                <li><strong>Benchmarks de México (Retail / Moda):</strong> CPMs entre $30 y $62.50 MXN, CTRs de 0.80% a 2.20%, CPI en App de $40.00 MXN y CPL en Sitio Web de $55.02 MXN.</li>
+                <li><strong>Eficiencia por Remarketing 60D:</strong> Las campañas de Carrito Abandonado (60 días sin compra) operan con CVR superior (3.70% en App y 2.62% en Web), reduciendo el CPA promedio y asegurando las metas de ROAS.</li>
               </ul>
             </div>
 

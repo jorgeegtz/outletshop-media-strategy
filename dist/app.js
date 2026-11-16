@@ -13,7 +13,7 @@
       briefMetricName: "Costo por instalaci\xF3n (CPI)",
       briefTargetLabel: "1,300 descargas",
       projectedResultLabel: "2,550 descargas (+ 1,148 registros app)",
-      unitCostSummary: "$40.00 MXN CPI | 1.59% CTR | 6.00% CVR Descarga | 45.0% CVR Reg",
+      unitCostSummary: "$40.00 MXN CPI | 1.55% CTR | 6.02% CVR Descarga | 45.0% CVR Reg",
       statusBadge: "196% vs. Meta (+1,250)",
       lines: [
         {
@@ -24,12 +24,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 40800,
           sharePct: 4.8,
-          cpmMxn: 42,
-          impressions: 971429,
-          ctrPct: 1.8,
-          clicks: 17486,
-          cpcMxn: 2.33,
-          cvrPct: 6.29,
+          cpmMxn: 40,
+          impressions: 102e4,
+          ctrPct: 1.75,
+          clicks: 17850,
+          cpcMxn: 2.29,
+          cvrPct: 6.16,
           conversions: 1100,
           conversionUnit: "descargas",
           costPerResultMxn: 37.09,
@@ -46,9 +46,9 @@
           isRemarketing60d: false,
           monthlySpendMxn: 35700,
           sharePct: 4.2,
-          cpmMxn: 38,
-          impressions: 939474,
-          ctrPct: 1.52,
+          cpmMxn: 37.5,
+          impressions: 952e3,
+          ctrPct: 1.5,
           clicks: 14280,
           cpcMxn: 2.5,
           cvrPct: 6.16,
@@ -68,12 +68,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 15300,
           sharePct: 1.8,
-          cpmMxn: 32,
-          impressions: 478125,
-          ctrPct: 1.45,
-          clicks: 6933,
-          cpcMxn: 2.21,
-          cvrPct: 5.63,
+          cpmMxn: 30,
+          impressions: 51e4,
+          ctrPct: 1.4,
+          clicks: 7140,
+          cpcMxn: 2.14,
+          cvrPct: 5.46,
           conversions: 390,
           conversionUnit: "descargas",
           costPerResultMxn: 39.23,
@@ -90,12 +90,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 10200,
           sharePct: 1.2,
-          cpmMxn: 36.3,
-          impressions: 280992,
-          ctrPct: 1.35,
-          clicks: 3793,
-          cpcMxn: 2.69,
-          cvrPct: 4.74,
+          cpmMxn: 40,
+          impressions: 255e3,
+          ctrPct: 1.2,
+          clicks: 3060,
+          cpcMxn: 3.33,
+          cvrPct: 5.88,
           conversions: 180,
           conversionUnit: "descargas",
           costPerResultMxn: 56.67,
@@ -127,12 +127,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 130050,
           sharePct: 15.3,
-          cpmMxn: 48,
-          impressions: 2709375,
-          ctrPct: 1.85,
-          clicks: 50123,
-          cpcMxn: 2.59,
-          cvrPct: 2.09,
+          cpmMxn: 50,
+          impressions: 2601e3,
+          ctrPct: 1.9,
+          clicks: 49419,
+          cpcMxn: 2.63,
+          cvrPct: 2.11,
           conversions: 1045,
           conversionUnit: "pedidos",
           costPerResultMxn: 124.45,
@@ -149,12 +149,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 99450,
           sharePct: 11.7,
-          cpmMxn: 46.29,
-          impressions: 2148412,
-          ctrPct: 1.65,
-          clicks: 35449,
+          cpmMxn: 45,
+          impressions: 221e4,
+          ctrPct: 1.6,
+          clicks: 35360,
           cpcMxn: 2.81,
-          cvrPct: 2.13,
+          cvrPct: 2.14,
           conversions: 755,
           conversionUnit: "pedidos",
           costPerResultMxn: 131.72,
@@ -173,10 +173,10 @@
           sharePct: 11.3,
           cpmMxn: 50,
           impressions: 1912500,
-          ctrPct: 1.15,
-          clicks: 22078,
-          cpcMxn: 4.33,
-          cvrPct: 3.85,
+          ctrPct: 1.2,
+          clicks: 22950,
+          cpcMxn: 4.17,
+          cvrPct: 3.7,
           conversions: 850,
           conversionUnit: "pedidos",
           costPerResultMxn: 112.5,
@@ -193,12 +193,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 57375,
           sharePct: 6.8,
-          cpmMxn: 42,
-          impressions: 1366071,
-          ctrPct: 1.45,
-          clicks: 19808,
-          cpcMxn: 2.9,
-          cvrPct: 2.07,
+          cpmMxn: 45,
+          impressions: 1275e3,
+          ctrPct: 1.56,
+          clicks: 19890,
+          cpcMxn: 2.88,
+          cvrPct: 2.06,
           conversions: 410,
           conversionUnit: "pedidos",
           costPerResultMxn: 139.94,
@@ -230,12 +230,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 133875,
           sharePct: 15.8,
-          cpmMxn: 65,
-          impressions: 2059615,
-          ctrPct: 2.3,
-          clicks: 47371,
-          cpcMxn: 2.83,
-          cvrPct: 1.21,
+          cpmMxn: 62.5,
+          impressions: 2142e3,
+          ctrPct: 2.2,
+          clicks: 47124,
+          cpcMxn: 2.84,
+          cvrPct: 1.22,
           conversions: 575,
           conversionUnit: "pedidos",
           costPerResultMxn: 232.83,
@@ -252,12 +252,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 82625,
           sharePct: 9.7,
-          cpmMxn: 42,
-          impressions: 1967262,
-          ctrPct: 1.64,
-          clicks: 32298,
-          cpcMxn: 2.56,
-          cvrPct: 0.6,
+          cpmMxn: 40,
+          impressions: 2065625,
+          ctrPct: 1.6,
+          clicks: 33050,
+          cpcMxn: 2.5,
+          cvrPct: 0.59,
           conversions: 195,
           conversionUnit: "pedidos",
           costPerResultMxn: 423.72,
@@ -274,12 +274,12 @@
           isRemarketing60d: true,
           monthlySpendMxn: 57200,
           sharePct: 6.7,
-          cpmMxn: 36,
-          impressions: 1588889,
-          ctrPct: 0.71,
-          clicks: 11321,
-          cpcMxn: 5.05,
-          cvrPct: 2.65,
+          cpmMxn: 40,
+          impressions: 143e4,
+          ctrPct: 0.8,
+          clicks: 11440,
+          cpcMxn: 5,
+          cvrPct: 2.62,
           conversions: 300,
           conversionUnit: "pedidos",
           costPerResultMxn: 190.67,
@@ -296,12 +296,12 @@
           isRemarketing60d: true,
           monthlySpendMxn: 23800,
           sharePct: 2.8,
-          cpmMxn: 59.69,
-          impressions: 398748,
-          ctrPct: 2.05,
-          clicks: 8174,
-          cpcMxn: 2.91,
-          cvrPct: 1.47,
+          cpmMxn: 50,
+          impressions: 476e3,
+          ctrPct: 1.6,
+          clicks: 7616,
+          cpcMxn: 3.13,
+          cvrPct: 1.58,
           conversions: 120,
           conversionUnit: "pedidos",
           costPerResultMxn: 198.33,
@@ -321,8 +321,8 @@
       monthlySpendMxn: 68e3,
       briefMetricName: "Costo por registro (CPL)",
       briefTargetLabel: "850 leads cualificados",
-      projectedResultLabel: "1,236 leads cualificados (24,738 visitas)",
-      unitCostSummary: "$55.02 MXN CPL | 5.00% CVR Visitantes a Registro",
+      projectedResultLabel: "1,236 leads cualificados (24,684 visitas)",
+      unitCostSummary: "$55.02 MXN CPL | 5.01% CVR Visitantes a Registro",
       statusBadge: "145% vs. Meta (+386)",
       lines: [
         {
@@ -333,12 +333,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 27200,
           sharePct: 3.2,
-          cpmMxn: 38,
-          impressions: 715789,
-          ctrPct: 1.45,
-          clicks: 10379,
-          cpcMxn: 2.62,
-          cvrPct: 5.2,
+          cpmMxn: 40,
+          impressions: 68e4,
+          ctrPct: 1.5,
+          clicks: 10200,
+          cpcMxn: 2.67,
+          cvrPct: 5.29,
           conversions: 540,
           conversionUnit: "leads",
           costPerResultMxn: 50.37,
@@ -355,12 +355,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 20400,
           sharePct: 2.4,
-          cpmMxn: 37,
-          impressions: 551351,
-          ctrPct: 1.35,
-          clicks: 7443,
-          cpcMxn: 2.74,
-          cvrPct: 5.11,
+          cpmMxn: 40,
+          impressions: 51e4,
+          ctrPct: 1.5,
+          clicks: 7650,
+          cpcMxn: 2.67,
+          cvrPct: 4.97,
           conversions: 380,
           conversionUnit: "leads",
           costPerResultMxn: 53.68,
@@ -399,12 +399,12 @@
           isRemarketing60d: false,
           monthlySpendMxn: 8160,
           sharePct: 1,
-          cpmMxn: 34.11,
-          impressions: 239226,
-          ctrPct: 1.1,
-          clicks: 2631,
-          cpcMxn: 3.1,
-          cvrPct: 4.43,
+          cpmMxn: 32,
+          impressions: 255e3,
+          ctrPct: 1,
+          clicks: 2550,
+          cpcMxn: 3.2,
+          cvrPct: 4.55,
           conversions: 116,
           conversionUnit: "leads",
           costPerResultMxn: 70.34,
@@ -456,17 +456,17 @@
       kpis: [
         {
           name: "Tasa de clics en anuncios de descarga (CTR)",
-          estimate: "1.59% promedio (42,492 clics)",
+          estimate: "1.55% promedio (42,330 clics)",
           howWeAchieveIt: "Videos cortos en TikTok/Reels y Google UAC mostrando descuentos reales por categor\xEDa familiar."
         },
         {
           name: "Tasa de conversi\xF3n de descargas (Click-to-Install)",
-          estimate: "6.00% (2,550 descargas)",
+          estimate: "6.02% (2,550 descargas)",
           howWeAchieveIt: "Fichas de App Store y Google Play optimizadas con capturas de ofertas y calificaciones."
         },
         {
           name: "Tasa de conversi\xF3n en registros de la app",
-          estimate: "45.0% (1,148 registros in-app)",
+          estimate: "45.02% (1,148 registros in-app)",
           howWeAchieveIt: "Login social en 1 clic e incentivo de $150 MXN en primera compra al registrarse en la app."
         },
         {
@@ -488,7 +488,7 @@
         },
         {
           name: "Tasa de conversi\xF3n de usuarios activos en la app",
-          estimate: "2.40% global (3.85% en Remarketing 60D)",
+          estimate: "2.40% global (3.70% en Remarketing 60D)",
           howWeAchieveIt: "Deep linking directo al producto o carrito abandonado (nunca al home gen\xE9rico)."
         },
         {
@@ -505,7 +505,7 @@
       kpis: [
         {
           name: "Tasa de conversi\xF3n en el sitio web (CVR Web)",
-          estimate: "1.20% global (2.65% en Remarketing 60D)",
+          estimate: "1.20% global (2.62% en Remarketing 60D)",
           howWeAchieveIt: "Tr\xE1fico de alta intenci\xF3n en Search y checkout \xE1gil con m\xE9todos de pago locales."
         },
         {
@@ -527,7 +527,7 @@
       kpis: [
         {
           name: "Tasa de conversi\xF3n de visitantes en registros",
-          estimate: "5.00% (1,236 registros de 24,738 visitas)",
+          estimate: "5.01% (1,236 registros de 24,684 visitas)",
           howWeAchieveIt: 'Landing dedicada "Club OutletShop" con 15% OFF adicional en la primera compra.'
         },
         {
@@ -794,7 +794,7 @@
                   <td><strong>4 Objetivos</strong></td>
                   <td><strong>100.0%</strong> ($850,000 MXN)</td>
                   <td><strong>$3,612,500 MXN en Ventas</strong><br/><span class="text-muted">4,250 pedidos + 2,550 descargas + 1,236 leads</span></td>
-                  <td>ROAS Global: <strong>4.25x</strong> | ROAS Ventas: <strong>5.31x</strong><br/>18.71M Impresiones | 284.8k Clics</td>
+                  <td>ROAS Global: <strong>4.25x</strong> | ROAS Ventas: <strong>5.31x</strong><br/>18.68M Impresiones | 293,863 Clics</td>
                   <td><span class="status-ok">4 / 4 Metas Cumplidas</span></td>
                 </tr>
               </tbody>
@@ -849,14 +849,14 @@
                   <td><strong>TOTAL PLAN DE MEDIOS</strong></td>
                   <td><strong>$850,000</strong></td>
                   <td><strong>100.0%</strong></td>
-                  <td><strong>$45.44</strong></td>
-                  <td><strong>18,708,856</strong></td>
-                  <td><strong>1.52%</strong></td>
-                  <td><strong>284,791</strong></td>
-                  <td><strong>$2.98</strong></td>
-                  <td><strong>-</strong></td>
+                  <td><strong>$45.51</strong></td>
+                  <td><strong>18,676,625</strong></td>
+                  <td><strong>1.57%</strong></td>
+                  <td><strong>293,863</strong></td>
+                  <td><strong>$2.89</strong></td>
+                  <td><strong>1.87% (Ventas)</strong></td>
                   <td><strong>4,250 Pedidos</strong></td>
-                  <td><strong>$160 CPA Ventas</strong></td>
+                  <td><strong>$160.00 CPA Ventas</strong></td>
                   <td><strong>$3,612,500</strong></td>
                   <td><strong>ROAS 4.25x</strong></td>
                 </tr>
@@ -873,8 +873,8 @@
                   <br/>- En <strong>App (ROAS 6.8)</strong>: <code>$850 AOV / 6.8 = $125.00 MXN CPA m\xE1ximo</code>. Con $382,500 MXN generamos <strong>3,060 pedidos ($2,601,000 MXN)</strong>.
                   <br/>- En <strong>Sitio Web (ROAS 3.4)</strong>: <code>$850 AOV / 3.4 = $250.00 MXN CPA m\xE1ximo</code>. Con $297,500 MXN generamos <strong>1,190 pedidos ($1,011,500 MXN)</strong>.
                 </li>
-                <li><strong>Benchmarks de M\xE9xico (Retail / Moda):</strong> CPMs entre $32 y $65 MXN, CTRs de 0.71% a 2.30%, CPI en App de $40.00 MXN y CPL en Sitio Web de $55.02 MXN.</li>
-                <li><strong>Eficiencia por Remarketing 60D:</strong> Las campa\xF1as de Carrito Abandonado (60 d\xEDas sin compra) operan con CVR superior (3.85% en App y 2.65% en Web), reduciendo el CPA promedio y asegurando las metas de ROAS.</li>
+                <li><strong>Benchmarks de M\xE9xico (Retail / Moda):</strong> CPMs entre $30 y $62.50 MXN, CTRs de 0.80% a 2.20%, CPI en App de $40.00 MXN y CPL en Sitio Web de $55.02 MXN.</li>
+                <li><strong>Eficiencia por Remarketing 60D:</strong> Las campa\xF1as de Carrito Abandonado (60 d\xEDas sin compra) operan con CVR superior (3.70% en App y 2.62% en Web), reduciendo el CPA promedio y asegurando las metas de ROAS.</li>
               </ul>
             </div>
 
