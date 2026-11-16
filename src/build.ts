@@ -43,4 +43,5 @@ const shellDocument = [
 ].join('\n');
 
 writeFileSync(join(distDir, 'index.html'), shellDocument, 'utf8');
+writeFileSync(join(distDir, 'vercel.json'), '{\n  "cleanUrls": true\n}\n', 'utf8');
 console.log('TypeScript build complete -> dist/app.js');
