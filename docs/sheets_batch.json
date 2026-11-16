@@ -89,18 +89,18 @@
     "range": "4_Medicion_Optimizacion!A19",
     "data": [
       ["", "", "", "", "", ""],
-      ["SECCION B: REPORTE DIARIO AUTOMATIZADO DE PERFORMANCE EN SLACK (META/GOOGLE + MMP/GA4 90D FORECAST)", "", "", "", "", ""],
-      ["Ventana de Tiempo", "Gasto Total", "Descargas (CPI)", "Leads Web (CPL)", "Pedidos App (ROAS)", "Pedidos Web (ROAS) + CPA Rmkt 60D"],
-      ["Dia 12 (Ayer)", "$28,500 MXN", "92 ($38.50 CPI)", "44 ($52.80 CPL)", "108 ($121.10 CPA | ROAS 7.02x)", "41 ($244.00 CPA | ROAS 3.48x) | Rmkt 60D: $134.20 CPA"],
-      ["L3 Dias (Promedio/dia)", "$28,333 MXN", "86 ($39.80 CPI)", "42 ($54.50 CPL)", "102 ($124.80 CPA | ROAS 6.81x)", "40 ($249.50 CPA | ROAS 3.41x) | Rmkt 60D: $138.90 CPA"],
-      ["L7 Dias (Promedio/dia)", "$26,400 MXN", "79 ($41.60 CPI)", "38 ($56.90 CPL)", "91 ($129.40 CPA | ROAS 6.57x)", "36 ($258.10 CPA | ROAS 3.29x) | Rmkt 60D: $144.50 CPA"],
+      ["SECCION B: DETALLE DE CAMPANA DE REMARKETING - CARRITOS ABANDONADOS (ULTIMOS 60 DIAS SIN COMPRA)", "", "", "", "", ""],
+      ["Segmento de Carrito Abandonado", "Ventana de Tiempo", "Canales Activos", "Inversion Mensual", "Mensaje y Tactica Comercial", "Pedidos / CPA / ROAS"],
+      ["1. Carrito Abandonado Reciente (Alta Urgencia)", "Dias 1 a 7 sin compra", "Facebook/IG DPA + Google Display + Email (1h, 24h, 48h)", "$79,481 MXN", "Recordatorio dinamico con la prenda/calzado exacto y aviso de 'Ultimos pares en tu talla'.", "635 pedidos | $125.17 CPA | ROAS 6.79x"],
+      ["2. Carrito en Quincena (Desbloqueo por Nomina)", "Dias 8 a 30 sin compra", "Facebook/IG + Display + DSP + Email Quincena", "$61,819 MXN", "Activacion en dias 15 y 30 del mes con 'Envio Gratis hoy o 10% OFF extra para cerrar tu carrito'.", "425 pedidos | $145.46 CPA | ROAS 5.84x"],
+      ["3. Reactivacion de Carrito Historico", "Dias 31 a 60 sin compra", "Facebook/IG Catalog + DSP + Email Reactivacion", "$35,325 MXN", "Muestra productos sustitutos de la misma talla/categoria con descuento final Outlet antes de salir de la ventana de 60 dias.", "210 pedidos | $168.21 CPA | ROAS 5.05x"],
+      ["TOTAL REMARKETING CARRITO 60D", "1 a 60 Dias (Excl. Compradores 60D)", "App (FB/IG/DSP) + Web (FB/Display/Email)", "$176,625 MXN", "Recuperacion omnicanal cubriendo 4 quincenas en Mexico", "1,270 pedidos | $139.07 CPA | ROAS 6.11x"],
       ["", "", "", "", "", ""],
-      ["SECCION C: ARBOL DE DECISION CREATIVO (10-15% TESTING POOL + CBO vs. ABO) Y REGLAS DE FATIGA (L3/L5/L7 + CPC)", "", "", "", "", ""],
-      ["Gate / Regla Automatizada", "Condicion de Disparo (Meta Rules / MCP)", "Accion Automatica", "Control Humano / Guardrail", "Impacto en Pacing (+20% / 72h)", ""],
-      ["Gate 1: >= 2,000 Impresiones", "Hook Rate (3s) < 25% Y Outbound CTR < 0.8%", "PAUSAR via Meta Rule / MCP; AI etiqueta Weak Hook", "Reescribir primeros 3s conservando el cuerpo del video", "Evita quemar budget de testing en hooks debiles", ""],
-      ["Gate 2: $125-$185 MXN Gasto (1x-1.5x CPA)", "0 AddToCart o 0 Registros In-App", "PAUSAR (Excepcion: permitir 2x CPA si Hook >35% y Hold >15%)", "Validar que el Deep Link abra la ficha correcta", "Filtra anuncios con clics curiosos sin intencion de compra", ""],
-      ["Gate 3: $250-$310 MXN Gasto (2x-2.5x CPA)", "0 Compras o CPA > 2x Objetivo ($250 App / $500 Web)", "HARD KILL automatico via Meta Rule / MCP", "Verificar que la talla anunciada siga en stock", "Protege el ROAS 6.8x en App y 3.4x en Web", ""],
-      ["Gate 4: Dias 5-7 (Graduacion + Fatiga L3/L5/L7)", "Ganador: CPA <= $125 App / <= $250 Web. Fatiga: CPA sube en L3/L5/L7 Y CPC > Promedio Cuenta", "Graduar via Post ID a BAU Smart Ads CBO; pausar Post IDs fatigados", "Escalar BAU +20% cada 72h solo si Forecast 90D mantiene ROAS en meta", "Mantiene social proof y escala sin resetear aprendizaje", ""]
+      ["", "", "", "", "", ""],
+      ["", "", "", "", "", ""],
+      ["", "", "", "", "", ""],
+      ["", "", "", "", "", ""],
+      ["", "", "", "", "", ""]
     ]
   }
 ]

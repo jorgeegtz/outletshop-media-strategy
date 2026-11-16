@@ -6,7 +6,7 @@ export interface MediaChannelLine {
   id: string;
   objectiveId: ObjectiveId;
   name: string;
-  platform: 'Google Ads' | 'Meta Ads' | 'TikTok Ads' | 'Programmatic DSP' | 'Email Marketing';
+  platform: string;
   isRemarketing60d: boolean;
   monthlySpendMxn: number;
   sharePct: number;
@@ -17,18 +17,19 @@ export interface MediaChannelLine {
   cpcMxn: number;
   cvrPct: number;
   conversions: number;
-  conversionUnit: 'installs' | 'pedidos' | 'leads';
+  conversionUnit: 'descargas' | 'pedidos' | 'leads';
   costPerResultMxn: number;
   costMetricType: CostMetricType;
   revenueMxn: number;
   roas: number | null;
-  secondaryKpiNote: string;
+  kpiHighlight: string;
 }
 
 export interface ObjectiveGroup {
   id: ObjectiveId;
   title: string;
   block: 'Captacion (20%)' | 'Ventas (80%)';
+  platformsText: string;
   sharePct: number;
   monthlySpendMxn: number;
   briefMetricName: string;
@@ -36,63 +37,29 @@ export interface ObjectiveGroup {
   projectedResultLabel: string;
   unitCostSummary: string;
   statusBadge: string;
-  ssotSource: string;
   lines: MediaChannelLine[];
 }
 
-export interface Remarketing60dTier {
+export interface Remarketing60dSegment {
+  segmentName: string;
   windowLabel: string;
-  quincenaContext: string;
-  budgetShareOfRmktPct: number;
-  monthlySpendMxn: number;
-  inclusionRule: string;
-  exclusionRule: string;
   channels: string;
-  creativeMessage: string;
-  cvrPct: number;
-  recoveredOrders: number;
+  budgetMxn: number;
+  tactic: string;
+  orders: number;
   cpaMxn: number;
-  revenueMxn: number;
   roas: number;
 }
 
-export interface DecisionGate {
-  title: string;
-  ruleText: string;
-  isWin: boolean;
-}
-
-export interface DailyReportRow {
-  windowLabel: string;
-  spendMxn: string;
-  installsAndCpi: string;
-  leadsAndCpl: string;
-  appOrdersAndCpa: string;
-  appRoas: string;
-  webOrdersAndCpa: string;
-  webRoas: string;
-  rmkt60dCpa: string;
-  statusType: 'ok' | 'warn';
-}
-
-export interface AiWorkflowLayer {
-  layerName: string;
-  subLabel: string;
-  aiRole: string[];
-  humanRole: string[];
-}
-
-export interface KpiRow {
-  objectiveLabel: string;
-  kpiList: string[];
-  modelProjections: string[];
-  ssotSource: string;
-  optimizationRules: string[];
-}
-
-export interface WeeklyCadenceStep {
-  weekTitle: string;
-  summary: string;
+export interface KpiGroupCard {
+  objectiveTitle: string;
+  platforms: string;
+  targetMeta: string;
+  kpis: {
+    name: string;
+    estimate: string;
+    howWeAchieveIt: string;
+  }[];
 }
 
 export interface SimulatorInputs {
@@ -131,4 +98,4 @@ export interface SimulatorOutputs {
   allGoalsMet: boolean;
 }
 
-export type PresetKey = 'baseline' | 'aov_boost' | 'rmkt_aggressive';
+export type PresetKey = 'baseline' | 'aov_boost' | 'rmkt_focus';

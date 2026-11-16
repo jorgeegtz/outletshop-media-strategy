@@ -1,13 +1,9 @@
 import {
-  AiWorkflowLayer,
-  DailyReportRow,
-  DecisionGate,
-  KpiRow,
+  KpiGroupCard,
   ObjectiveGroup,
   PresetKey,
-  Remarketing60dTier,
-  SimulatorInputs,
-  WeeklyCadenceStep
+  Remarketing60dSegment,
+  SimulatorInputs
 } from './types';
 
 export const GOOGLE_SHEET_URL =
@@ -18,19 +14,19 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     id: 'obj1',
     title: '1. Incremento de descargas de app',
     block: 'Captacion (20%)',
+    platformsText: 'Facebook, Instagram, Google Ads, TikTok y DSP',
     sharePct: 12.0,
     monthlySpendMxn: 102000,
     briefMetricName: 'Costo por instalacion (CPI)',
     briefTargetLabel: '1,300 descargas',
-    projectedResultLabel: '2,550 descargas (+ 1,148 registros in-app)',
-    unitCostSummary: 'CPI: $40.00 MXN | CTR: 1.59% | CVR Descarga: 6.00% | CVR Reg: 45.0%',
-    statusBadge: '196% CUMPLIMIENTO (+1,250)',
-    ssotSource: 'MMP (AppsFlyer / Adjust)',
+    projectedResultLabel: '2,550 descargas (+ 1,148 registros app)',
+    unitCostSummary: '$40.00 MXN CPI | 1.59% CTR | 6.00% CVR Descarga | 45.0% CVR Reg',
+    statusBadge: '196% vs Meta (+1,250)',
     lines: [
       {
         id: '1.1',
         objectiveId: 'obj1',
-        name: '1.1 Google Ads (UAC Install & Engagement - Android + iOS)',
+        name: '1.1 Google Ads (App Campaigns - Descargas)',
         platform: 'Google Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 40800,
@@ -42,18 +38,18 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         cpcMxn: 2.33,
         cvrPct: 6.29,
         conversions: 1100,
-        conversionUnit: 'installs',
+        conversionUnit: 'descargas',
         costPerResultMxn: 37.09,
         costMetricType: 'CPI',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: '528 Reg (48% CVR)'
+        kpiHighlight: '528 Reg App (48% CVR)'
       },
       {
         id: '1.2',
         objectiveId: 'obj1',
-        name: '1.2 Meta Ads (2 CBOs Separadas: Android 65% + iOS 35%)',
-        platform: 'Meta Ads',
+        name: '1.2 Facebook & Instagram Ads (App Install)',
+        platform: 'Facebook + Instagram',
         isRemarketing60d: false,
         monthlySpendMxn: 35700,
         sharePct: 4.2,
@@ -64,18 +60,18 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         cpcMxn: 2.5,
         cvrPct: 6.16,
         conversions: 880,
-        conversionUnit: 'installs',
+        conversionUnit: 'descargas',
         costPerResultMxn: 40.57,
         costMetricType: 'CPI',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: '396 Reg (45% CVR)'
+        kpiHighlight: '396 Reg App (45% CVR)'
       },
       {
         id: '1.3',
         objectiveId: 'obj1',
-        name: '1.3 TikTok Ads (App Install UGC Moda Familiar)',
-        platform: 'TikTok Ads',
+        name: '1.3 TikTok Ads (App Install Ofertas Moda)',
+        platform: 'TikTok',
         isRemarketing60d: false,
         monthlySpendMxn: 15300,
         sharePct: 1.8,
@@ -86,18 +82,18 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         cpcMxn: 2.21,
         cvrPct: 5.63,
         conversions: 390,
-        conversionUnit: 'installs',
+        conversionUnit: 'descargas',
         costPerResultMxn: 39.23,
         costMetricType: 'CPI',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: '156 Reg (40% CVR)'
+        kpiHighlight: '156 Reg App (40% CVR)'
       },
       {
         id: '1.4',
         objectiveId: 'obj1',
-        name: '1.4 Programmatic DSP (In-App Video & Reach)',
-        platform: 'Programmatic DSP',
+        name: '1.4 DSP Programatico (In-App Reach & Video)',
+        platform: 'DSP',
         isRemarketing60d: false,
         monthlySpendMxn: 10200,
         sharePct: 1.2,
@@ -108,12 +104,12 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         cpcMxn: 2.69,
         cvrPct: 4.74,
         conversions: 180,
-        conversionUnit: 'installs',
+        conversionUnit: 'descargas',
         costPerResultMxn: 56.67,
         costMetricType: 'CPI',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: '68 Reg (38% CVR)'
+        kpiHighlight: '68 Reg App (38% CVR)'
       }
     ]
   },
@@ -121,19 +117,19 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     id: 'obj2',
     title: '2. Incremento de ventas en app',
     block: 'Ventas (80%)',
+    platformsText: 'Google Ads, Facebook, Instagram, TikTok y DSP',
     sharePct: 45.0,
     monthlySpendMxn: 382500,
     briefMetricName: 'Tasa de conversion en app',
     briefTargetLabel: 'ROAS 6.8',
     projectedResultLabel: 'ROAS 6.80x ($2,601,000 MXN / 3,060 pedidos)',
-    unitCostSummary: 'CVR App: 2.40% | CPA Global: $125.00 | CPA Rmkt 60D: $112.50 MXN',
-    statusBadge: 'META EXACTA (ROAS 6.80x)',
-    ssotSource: 'MMP + In-App SDK Events',
+    unitCostSummary: '2.40% CVR App | $125.00 CPA | AOV $850 | 1,285 Recompras',
+    statusBadge: 'Meta Exacta (ROAS 6.80x)',
     lines: [
       {
         id: '2.1',
         objectiveId: 'obj2',
-        name: '2.1 Google Ads (UAC for Action - In-App Purchase)',
+        name: '2.1 Google Ads (App Campaigns for Engagement / Ventas)',
         platform: 'Google Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 130050,
@@ -150,13 +146,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 888250,
         roas: 6.83,
-        secondaryKpiNote: '6.83x ROAS'
+        kpiHighlight: 'ROAS 6.83x'
       },
       {
         id: '2.2',
         objectiveId: 'obj2',
-        name: '2.2 Meta Ads (Smart Ads CBO BAU 85% + Testing CBO/ABO 15%)',
-        platform: 'Meta Ads',
+        name: '2.2 Facebook & Instagram Ads (Catalogo In-App)',
+        platform: 'Facebook + Instagram',
         isRemarketing60d: false,
         monthlySpendMxn: 99450,
         sharePct: 11.7,
@@ -172,13 +168,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 641750,
         roas: 6.45,
-        secondaryKpiNote: '6.45x ROAS'
+        kpiHighlight: 'ROAS 6.45x'
       },
       {
         id: '2.3',
         objectiveId: 'obj2',
-        name: '2.3 Remarketing Carrito Abandonado 60D App (Meta DABA + DSP)',
-        platform: 'Meta Ads',
+        name: '2.3 Remarketing Carrito 60D In-App (FB/IG + DSP Deep Link)',
+        platform: 'FB/IG + DSP',
         isRemarketing60d: true,
         monthlySpendMxn: 95625,
         sharePct: 11.3,
@@ -194,13 +190,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 722500,
         roas: 7.56,
-        secondaryKpiNote: '7.56x ROAS (Rmkt 60D)'
+        kpiHighlight: 'ROAS 7.56x (Rmkt 60D)'
       },
       {
         id: '2.4',
         objectiveId: 'obj2',
-        name: '2.4 TikTok Ads (In-App Catalog & Video Shopping)',
-        platform: 'TikTok Ads',
+        name: '2.4 TikTok Ads (In-App Video Shopping & Catalog)',
+        platform: 'TikTok',
         isRemarketing60d: false,
         monthlySpendMxn: 57375,
         sharePct: 6.8,
@@ -216,7 +212,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 348500,
         roas: 6.07,
-        secondaryKpiNote: '6.07x ROAS'
+        kpiHighlight: 'ROAS 6.07x'
       }
     ]
   },
@@ -224,20 +220,20 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     id: 'obj3',
     title: '3. Incremento de ventas en sitio web',
     block: 'Ventas (80%)',
+    platformsText: 'Google Search Ads, Email Marketing, Facebook y Display',
     sharePct: 35.0,
     monthlySpendMxn: 297500,
     briefMetricName: 'Tasa de conversion en sitio web',
     briefTargetLabel: 'ROAS 3.4',
     projectedResultLabel: 'ROAS 3.40x ($1,011,500 MXN / 1,190 pedidos)',
-    unitCostSummary: 'CVR Web: 1.20% | ROAS Google: 3.65x | CPA Rmkt 60D: $192.86 MXN',
-    statusBadge: 'META EXACTA (ROAS 3.40x)',
-    ssotSource: 'GA4 + Google Ads / Meta CAPI',
+    unitCostSummary: '1.20% CVR Web | ROAS Google: 3.65x | CPA Rmkt 60D: $192.86',
+    statusBadge: 'Meta Exacta (ROAS 3.40x)',
     lines: [
       {
         id: '3.1',
         objectiveId: 'obj3',
         name: '3.1 Google Search Ads (Brand + Generic Ofertas + Shopping)',
-        platform: 'Google Ads',
+        platform: 'Google Search Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 133875,
         sharePct: 15.8,
@@ -253,13 +249,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 488750,
         roas: 3.65,
-        secondaryKpiNote: '3.65x ROAS'
+        kpiHighlight: 'ROAS 3.65x'
       },
       {
         id: '3.2',
         objectiveId: 'obj3',
-        name: '3.2 Facebook Ads (Smart Ads CBO BAU 85% + Testing 15%)',
-        platform: 'Meta Ads',
+        name: '3.2 Facebook Ads (Catalogo Ventas Web - Prospeccion)',
+        platform: 'Facebook',
         isRemarketing60d: false,
         monthlySpendMxn: 82625,
         sharePct: 9.7,
@@ -275,13 +271,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 165750,
         roas: 2.01,
-        secondaryKpiNote: '2.01x ROAS (Frio)'
+        kpiHighlight: 'ROAS 2.01x'
       },
       {
         id: '3.3',
         objectiveId: 'obj3',
-        name: '3.3 Remarketing Carrito Abandonado 60D Web (FB DPA + Display)',
-        platform: 'Meta Ads',
+        name: '3.3 Remarketing Carrito 60D Web (Facebook DPA + Display)',
+        platform: 'Facebook + Display',
         isRemarketing60d: true,
         monthlySpendMxn: 57200,
         sharePct: 6.7,
@@ -297,12 +293,12 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 255000,
         roas: 4.46,
-        secondaryKpiNote: '4.46x ROAS (Rmkt 60D)'
+        kpiHighlight: 'ROAS 4.46x (Rmkt 60D)'
       },
       {
         id: '3.4',
         objectiveId: 'obj3',
-        name: '3.4 Email Marketing Rmkt 60D (Flujos Carrito 60D & Leads)',
+        name: '3.4 Email Marketing (Carrito Abandonado 60D & Leads)',
         platform: 'Email Marketing',
         isRemarketing60d: true,
         monthlySpendMxn: 23800,
@@ -319,7 +315,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPA',
         revenueMxn: 102000,
         roas: 4.29,
-        secondaryKpiNote: '4.29x ROAS (Rmkt CRM)'
+        kpiHighlight: 'ROAS 4.29x (Rmkt Email)'
       }
     ]
   },
@@ -327,20 +323,20 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     id: 'obj4',
     title: '4. Incremento de registros en sitio',
     block: 'Captacion (20%)',
+    platformsText: 'Google Display, Facebook Ads, Instagram Ads, DSP',
     sharePct: 8.0,
     monthlySpendMxn: 68000,
     briefMetricName: 'Costo por registro (CPL)',
     briefTargetLabel: '850 leads cualificados',
-    projectedResultLabel: '1,236 leads cualificados (24,738 visitas a landing)',
-    unitCostSummary: 'CPL: $55.02 MXN | CVR Visitantes a Registro: 5.00%',
-    statusBadge: '145% CUMPLIMIENTO (+386)',
-    ssotSource: 'GA4 + CRM / Plataforma Email',
+    projectedResultLabel: '1,236 leads cualificados (24,738 visitas)',
+    unitCostSummary: '$55.02 MXN CPL | 5.00% CVR Visitantes a Registro',
+    statusBadge: '145% vs Meta (+386)',
     lines: [
       {
         id: '4.1',
         objectiveId: 'obj4',
-        name: '4.1 Facebook Ads (Lead Ads + Club Outlet 15% OFF)',
-        platform: 'Meta Ads',
+        name: '4.1 Facebook Ads (Lead Generation & Club Outlet 15% OFF)',
+        platform: 'Facebook Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 27200,
         sharePct: 3.2,
@@ -356,13 +352,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPL',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: 'Lead Cualificado'
+        kpiHighlight: '540 Leads ($50.37 CPL)'
       },
       {
         id: '4.2',
         objectiveId: 'obj4',
-        name: '4.2 Instagram Ads (Reels/Stories Lead Magnet Moda Familiar)',
-        platform: 'Meta Ads',
+        name: '4.2 Instagram Ads (Stories/Reels Registro Moda Familiar)',
+        platform: 'Instagram Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 20400,
         sharePct: 2.4,
@@ -378,13 +374,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPL',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: 'Lead Cualificado'
+        kpiHighlight: '380 Leads ($53.68 CPL)'
       },
       {
         id: '4.3',
         objectiveId: 'obj4',
-        name: '4.3 Google Display (Custom Intent Moda, Calzado y Ofertas)',
-        platform: 'Google Ads',
+        name: '4.3 Google Display (Audiencias In-Market Calzado y Ofertas)',
+        platform: 'Google Display',
         isRemarketing60d: false,
         monthlySpendMxn: 12240,
         sharePct: 1.4,
@@ -400,13 +396,13 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPL',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: 'Lead Cualificado'
+        kpiHighlight: '200 Leads ($61.20 CPL)'
       },
       {
         id: '4.4',
         objectiveId: 'obj4',
-        name: '4.4 Programmatic DSP (Contextual & Lookalike Compradores MX)',
-        platform: 'Programmatic DSP',
+        name: '4.4 DSP Programatico (Segmentacion Contextual Moda/Retail)',
+        platform: 'DSP',
         isRemarketing60d: false,
         monthlySpendMxn: 8160,
         sharePct: 1.0,
@@ -422,277 +418,138 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
         costMetricType: 'CPL',
         revenueMxn: 0,
         roas: null,
-        secondaryKpiNote: 'Lead Cualificado'
+        kpiHighlight: '116 Leads ($70.34 CPL)'
       }
     ]
   }
 ];
 
-export const REMARKETING_60D_TIERS: Remarketing60dTier[] = [
+export const REMARKETING_60D_SEGMENTS: Remarketing60dSegment[] = [
   {
-    windowLabel: 'Tier 1: Dias 1 a 7 (Urgencia de Stock y Talla)',
-    quincenaContext: 'Intencion Inmediata (Misma Quincena)',
-    budgetShareOfRmktPct: 45,
-    monthlySpendMxn: 79481,
-    inclusionRule: 'AddToCart ultimos 7 dias (App + Web)',
-    exclusionRule: 'Purchase ultimos 60 dias (CAPI + MMP en tiempo real)',
-    channels: 'Meta DABA / DPA + Push In-App + Email Carrito (1h, 24h, 48h)',
-    creativeMessage:
-      'Carrusel dinamico con el calzado/prenda exacta del carrito: "Quedan pocos pares en tu talla - Reserva tu carrito hoy".',
-    cvrPct: 4.1,
-    recoveredOrders: 635,
+    segmentName: '1. Carrito Abandonado Reciente (Alta Urgencia)',
+    windowLabel: 'Dias 1 a 7 sin compra',
+    channels: 'Facebook/IG DPA + Google Display + Email (1h, 24h, 48h)',
+    budgetMxn: 79481,
+    tactic: 'Recordatorio dinamico con la prenda/calzado exacto y aviso de "Ultimos pares en tu talla".',
+    orders: 635,
     cpaMxn: 125.17,
-    revenueMxn: 539750,
     roas: 6.79
   },
   {
-    windowLabel: 'Tier 2: Dias 8 a 30 (Desbloqueo en Quincena 1 y 2)',
-    quincenaContext: 'Efecto Quincena MX (Dias 15 y 30 del mes)',
-    budgetShareOfRmktPct: 35,
-    monthlySpendMxn: 61819,
-    inclusionRule: 'AddToCart 8-30 dias atras',
-    exclusionRule: 'AddToCart 1-7d + Purchase ultimos 60 dias',
-    channels: 'Meta DPA/DABA + Google Display Dynamic + DSP Retargeting',
-    creativeMessage:
-      'Incentivo desbloqueador sincronizado con pago de nomina: "Tu carrito sigue disponible + Envio Gratis o 10% OFF extra por 48h".',
-    cvrPct: 2.85,
-    recoveredOrders: 425,
+    segmentName: '2. Carrito en Quincena (Desbloqueo por Nomina)',
+    windowLabel: 'Dias 8 a 30 sin compra',
+    channels: 'Facebook/IG + Display + DSP + Email Quincena',
+    budgetMxn: 61819,
+    tactic: 'Activacion en dias 15 y 30 del mes con "Envio Gratis hoy o 10% OFF extra para cerrar tu carrito".',
+    orders: 425,
     cpaMxn: 145.46,
-    revenueMxn: 361250,
     roas: 5.84
   },
   {
-    windowLabel: 'Tier 3: Dias 31 a 60 (Reactivacion de Carrito Historico)',
-    quincenaContext: 'Quincenas 3 y 4 (Ultima ventana antes de expirar)',
-    budgetShareOfRmktPct: 20,
-    monthlySpendMxn: 35325,
-    inclusionRule: 'AddToCart 31-60 dias atras',
-    exclusionRule: 'AddToCart 1-30d + Purchase ultimos 60 dias',
-    channels: 'Facebook/IG Catalog + Email Reactivacion + DSP Cross-Sell',
-    creativeMessage:
-      'Si la talla original se agoto, el feed dinamico muestra sustitutos de la misma talla y categoria con "Liquidacion Final Outlet hasta 60% OFF".',
-    cvrPct: 1.95,
-    recoveredOrders: 210,
+    segmentName: '3. Reactivacion de Carrito Historico',
+    windowLabel: 'Dias 31 a 60 sin compra',
+    channels: 'Facebook/IG Catalog + DSP + Email Reactivacion',
+    budgetMxn: 35325,
+    tactic: 'Muestra productos sustitutos de la misma talla/categoria con descuento final Outlet antes de salir de la ventana de 60 dias.',
+    orders: 210,
     cpaMxn: 168.21,
-    revenueMxn: 178500,
     roas: 5.05
   }
 ];
 
-export const CREATIVE_DECISION_GATES: DecisionGate[] = [
+export const KPI_GROUP_CARDS: KpiGroupCard[] = [
   {
-    title: 'Gate 1: >= 2,000 Impresiones | Filtro Temprano de Hook',
-    ruleText:
-      'Regla: Hook Rate (3s) < 25% Y Outbound CTR < 0.8% -> PAUSAR via Meta Rule / MCP. AI etiqueta "Weak Hook" para reescribir los primeros 3 segundos.',
-    isWin: false
-  },
-  {
-    title: 'Gate 2: $125-$185 MXN Gasto (1x-1.5x CPA App) | Filtro de Intencion',
-    ruleText:
-      'Regla: 0 AddToCart / Registros -> PAUSAR. Excepcion de paciencia: si Hook Rate > 35% y Hold Rate > 15%, permitir hasta 2x CPA ($250 MXN) antes de cortar.',
-    isWin: false
-  },
-  {
-    title: 'Gate 3: $250-$310 MXN Gasto (2x-2.5x CPA) | Hard Stop-Loss',
-    ruleText:
-      'Regla: 0 Compras a $250 MXN en App ($500 MXN en Web) O CPA > 2x objetivo -> HARD KILL automatico via Meta Rule / MCP.',
-    isWin: false
-  },
-  {
-    title: 'Gate 4: Dias 5-7 | Graduacion de Ganadores via Post ID',
-    ruleText:
-      'Regla: ROAS >= 6.8x en App (CPA <= $125) o ROAS >= 3.4x en Web (CPA <= $250) -> GANADOR. Graduar via Post ID hacia BAU Smart Ads CBO sin resetear el aprendizaje.',
-    isWin: true
-  }
-];
-
-export const AI_WORKFLOW_LAYERS: AiWorkflowLayer[] = [
-  {
-    layerName: '1. Automatizacion en Plataformas',
-    subLabel: '(Smart Ads CBO, UAC & Advantage+)',
-    aiRole: [
-      'Distribucion dinamica de presupuesto entre los 4 Concept Ad Groups dentro del BAU Smart Ads CBO.',
-      'Entrega liquida en Advantage+ Placements y Google UAC (separando CBO Android 65% e iOS 35%).',
-      'Enriquecimiento de senales server-side via Meta CAPI y MMP Postbacks.'
-    ],
-    humanRole: [
-      'Atribucion y Exclusiones: Fijar ventana 7DC y excluir en tiempo real compradores de los ultimos 60 dias (Purchase 60D) en App y Web.',
-      'Pacing Basado en Resultados: El humano controla el paso de Warmup (Dias 1-5) a BAU (Dia 6+) y la regla de escalar +20% cada 72h.'
+    objectiveTitle: '1. Campanas de Descargas y Engagement App',
+    platforms: 'Facebook, Instagram, Google Ads, TikTok y DSP',
+    targetMeta: 'Meta: 1,300 descargas -> Logrado: 2,550 descargas ($102,000 MXN)',
+    kpis: [
+      {
+        name: 'Tasa de clics en anuncios de descarga (CTR)',
+        estimate: '1.59% promedio (42,492 clics)',
+        howWeAchieveIt: 'Videos cortos en TikTok/Reels y Google UAC mostrando descuentos reales por categoria familiar.'
+      },
+      {
+        name: 'Tasa de conversion de descargas (Click-to-Install)',
+        estimate: '6.00% (2,550 descargas)',
+        howWeAchieveIt: 'Fichas de App Store y Google Play optimizadas con capturas de ofertas y calificaciones.'
+      },
+      {
+        name: 'Tasa de conversion en registros de la app',
+        estimate: '45.0% (1,148 registros in-app)',
+        howWeAchieveIt: 'Login social en 1 clic e incentivo de $150 MXN en primera compra al registrarse en la app.'
+      },
+      {
+        name: 'Costo por instalacion (CPI)',
+        estimate: '$40.00 MXN promedio',
+        howWeAchieveIt: 'Concentrar 75% del presupuesto del objetivo en Google UAC ($37.09 CPI) y Meta ($40.57 CPI).'
+      }
     ]
   },
   {
-    layerName: '2. Testing Creativo y Control de Fatiga',
-    subLabel: '(Meta MCP + Reglas Automatizadas)',
-    aiRole: [
-      'Ejecuta los cortes de stop-loss en la campana de Testing (10-15% del budget) en los Gates 1, 2 y 3.',
-      'Detecta fatiga creativa cuando el CPA en L3 / L5 / L7 sube de forma consecutiva Y el CPC supera el promedio de la cuenta.',
-      'Mineria de hooks e iteracion de guiones UGC familiares con IA.'
-    ],
-    humanRole: [
-      'Consistencia de Precios y Stock: Verificar que las ofertas y tallas anunciadas coincidan 100% con el inventario real de OutletShop.',
-      'Direccion Creativa: Decidir que angulos ganadores reciben nuevas grabaciones con creadores y sesiones de catalogo.'
+    objectiveTitle: '2. Promocion de Ventas dentro de la App',
+    platforms: 'Google Ads, Facebook, Instagram, TikTok y DSP',
+    targetMeta: 'Meta: ROAS 6.8 -> Logrado: ROAS 6.80x ($2,601,000 MXN con $382,500 MXN)',
+    kpis: [
+      {
+        name: 'Valor promedio de pedido (AOV) en la app',
+        estimate: '$850 MXN base (meta operativa $950 MXN)',
+        howWeAchieveIt: 'Packs familiares y barra de "Envio Gratis en compras mayores a $899 MXN" en el carrito.'
+      },
+      {
+        name: 'Tasa de conversion de usuarios activos en la app',
+        estimate: '2.40% global (3.85% en Remarketing 60D)',
+        howWeAchieveIt: 'Deep linking directo al producto o carrito abandonado (nunca al home generico).'
+      },
+      {
+        name: 'Numero de compras recurrentes',
+        estimate: '1,285 pedidos recurrentes (42% del total app)',
+        howWeAchieveIt: 'Audiencias de compradores previos y carritos abandonados (1-60 dias) impactados en quincena.'
+      }
     ]
   },
   {
-    layerName: '3. Forecast 90D y Reporte Diario Slack',
-    subLabel: '(Pipeline Automatizado MMP + GA4 + Meta)',
-    aiRole: [
-      'Extrae cada manana el gasto de Meta/Google/TikTok/DSP + CVR rolling de 90 dias y tasa de devolucion/cancelacion desde MMP y GA4.',
-      'Publica automaticamente en Slack el Daily Performance & Projected ROAS Report (Yesterday, L3 y L7).'
-    ],
-    humanRole: [
-      'Diagnostico de Causa Raiz: Distinguir entre fatiga creativa real y fallos tecnicos (pasarela de pago, caida de Deep Links o quiebre de tallas clave) antes de tocar presupuestos.'
-    ]
-  }
-];
-
-export const DAILY_REPORT_SAMPLE: DailyReportRow[] = [
-  {
-    windowLabel: 'Dia 12 (Ayer)',
-    spendMxn: '$28,500',
-    installsAndCpi: '92 ($38.50 CPI)',
-    leadsAndCpl: '44 ($52.80 CPL)',
-    appOrdersAndCpa: '108 ($121.10 CPA)',
-    appRoas: '7.02x',
-    webOrdersAndCpa: '41 ($244.00 CPA)',
-    webRoas: '3.48x',
-    rmkt60dCpa: '$134.20 (6.33x)',
-    statusType: 'ok'
-  },
-  {
-    windowLabel: 'L3 Dias (Prom/d)',
-    spendMxn: '$28,333',
-    installsAndCpi: '86 ($39.80 CPI)',
-    leadsAndCpl: '42 ($54.50 CPL)',
-    appOrdersAndCpa: '102 ($124.80 CPA)',
-    appRoas: '6.81x',
-    webOrdersAndCpa: '40 ($249.50 CPA)',
-    webRoas: '3.41x',
-    rmkt60dCpa: '$138.90 (6.12x)',
-    statusType: 'ok'
-  },
-  {
-    windowLabel: 'L7 Dias (Prom/d)',
-    spendMxn: '$26,400',
-    installsAndCpi: '79 ($41.60 CPI)',
-    leadsAndCpl: '38 ($56.90 CPL)',
-    appOrdersAndCpa: '91 ($129.40 CPA)',
-    appRoas: '6.57x',
-    webOrdersAndCpa: '36 ($258.10 CPA)',
-    webRoas: '3.29x',
-    rmkt60dCpa: '$144.50 (5.88x)',
-    statusType: 'warn'
-  }
-];
-
-export const KPI_MATRIX_ROWS: KpiRow[] = [
-  {
-    objectiveLabel: '1. Descargas App',
-    kpiList: [
-      'Tasa de clics en anuncios (CTR)',
-      'Tasa de conversion de descargas',
-      'Tasa de conversion en registros app',
-      'Costo por instalacion (CPI)'
-    ],
-    modelProjections: [
-      'CTR: 1.59% (42,492 clics)',
-      'CVR Descarga: 6.00% (2,550 installs)',
-      'CVR Registro App: 45.0% (1,148 reg)',
-      'CPI Blended: $40.00 MXN (Meta: 1,300)'
-    ],
-    ssotSource: 'MMP (AppsFlyer / Adjust) + Consolas App Store / Play Store',
-    optimizationRules: [
-      'Separar campanas CBO por sistema operativo (65% Android / 35% iOS) para evitar que Android acapare la entrega por menor CPM.',
-      'Pausar via Meta MCP anuncios con Hook Rate < 25% y CTR < 0.8% tras 2,000 impresiones.',
-      'Incentivar registro in-app con cupon de bienvenida bloqueado hasta completar login.'
+    objectiveTitle: '3. Incentivar Ventas en el Sitio Web',
+    platforms: 'Google Search Ads, Email Marketing, Facebook y Display',
+    targetMeta: 'Meta: ROAS 3.4 -> Logrado: ROAS 3.40x ($1,011,500 MXN con $297,500 MXN)',
+    kpis: [
+      {
+        name: 'Tasa de conversion en el sitio web (CVR Web)',
+        estimate: '1.20% global (2.65% en Remarketing 60D)',
+        howWeAchieveIt: 'Trafico de alta intencion en Search y checkout agil con metodos de pago locales.'
+      },
+      {
+        name: 'Retorno sobre inversion publicitaria (ROAS) en Google Ads',
+        estimate: '3.65x en Google Search Ads',
+        howWeAchieveIt: 'Separacion de campanas Brand, Generic de ofertas ("outlet calzado") y Shopping con filtro de stock.'
+      },
+      {
+        name: 'Costo por adquisicion (CPA) en campanas de remarketing',
+        estimate: '$192.86 MXN CPA ($190.67 Ads | $198.33 Email)',
+        howWeAchieveIt: 'Campana dedicada a usuarios que abandonaron el carrito sin comprar en los ultimos 60 dias.'
+      }
     ]
   },
   {
-    objectiveLabel: '2. Ventas en App (ROAS 6.8)',
-    kpiList: [
-      'Valor promedio de pedido (AOV) app',
-      'Tasa de conversion usuarios activos',
-      'Numero de compras recurrentes'
-    ],
-    modelProjections: [
-      'AOV Base: $850 MXN (Upsell a $950)',
-      'CVR Usuarios Activos: 2.40% (3.85% en Rmkt 60D)',
-      'Compras Recurrentes y Rmkt: 1,285 (42%)',
-      'ROAS Logrado: 6.80x ($125 CPA Global | $112.50 CPA Rmkt 60D)'
-    ],
-    ssotSource: 'MMP In-App Events (af_add_to_cart, af_purchase) + Backend App',
-    optimizationRules: [
-      'Escalar presupuesto BAU +20% cada 72h unicamente cuando el CPA in-app se mantenga <= $125 MXN y el modelo 90D proyecte ROAS >= 6.8x.',
-      'Pausar Post IDs fatigados cuando el CPA suba en L3/L5/L7 Y el CPC supere el promedio de la cuenta.',
-      'Deep linking obligatorio al carrito pre-cargado en la campana de Carrito Abandonado 60D.'
+    objectiveTitle: '4. Incrementar Registros en el Sitio Web',
+    platforms: 'Google Display, Facebook Ads, Instagram Ads, DSP',
+    targetMeta: 'Meta: 850 leads cualificados -> Logrado: 1,236 leads ($68,000 MXN)',
+    kpis: [
+      {
+        name: 'Tasa de conversion de visitantes en registros',
+        estimate: '5.00% (1,236 registros de 24,738 visitas)',
+        howWeAchieveIt: 'Landing dedicada "Club OutletShop" con 15% OFF adicional en la primera compra.'
+      },
+      {
+        name: 'Numero de registros completados',
+        estimate: '1,236 leads cualificados (+45% vs meta)',
+        howWeAchieveIt: 'Formulario corto (correo, WhatsApp y categoria de interes: Mujer, Hombre, Ninos).'
+      },
+      {
+        name: 'Costo por lead (CPL)',
+        estimate: '$55.02 MXN promedio',
+        howWeAchieveIt: '70% del presupuesto en Facebook e Instagram Lead/Conversion Ads ($50-$53 CPL) + 30% en Display/DSP.'
+      }
     ]
-  },
-  {
-    objectiveLabel: '3. Ventas Sitio Web (ROAS 3.4)',
-    kpiList: [
-      'Tasa de conversion en sitio web',
-      'ROAS en Google Ads',
-      'CPA en campanas de remarketing (Carrito 60D)'
-    ],
-    modelProjections: [
-      'CVR Sitio Web: 1.20% (2.65% en Rmkt 60D)',
-      'ROAS Google Search: 3.65x',
-      'CPA Remarketing 60D: $192.86 MXN ($190.67 Ads | $198.33 Email)',
-      'ROAS Web Total: 3.40x ($250 CPA Global)'
-    ],
-    ssotSource: 'GA4 + Google Ads + Meta CAPI + Plataforma Email',
-    optimizationRules: [
-      'Segmentar la audiencia add_to_cart 60D (excluyendo purchase 60D) en 3 ventanas (1-7d, 8-30d, 31-60d) alineadas con las 4 quincenas en Mexico.',
-      'Excluir en campanas Web a usuarios que ya compraron en la App (via listas CAPI/MMP) para evitar canibalizacion.',
-      'Excluir SKUs con menos de 60% de tallas en stock del feed de Shopping y DPA.'
-    ]
-  },
-  {
-    objectiveLabel: '4. Registros Web',
-    kpiList: [
-      'CVR de visitantes en registros',
-      'Numero de registros completados',
-      'Costo por lead (CPL)'
-    ],
-    modelProjections: [
-      'CVR Visitantes a Registro: 5.00%',
-      'Registros Completados: 1,236 leads',
-      'CPL Blended: $55.02 MXN (Meta: 850)'
-    ],
-    ssotSource: 'GA4 (complete_registration) + CRM / Email',
-    optimizationRules: [
-      'Disparo automatico del correo #1 (cupon 15% OFF) en <2 minutos tras el registro.',
-      'Si el lead registrado agrega productos al carrito y no compra, ingresa automaticamente al flujo de Remarketing 60D.',
-      'Pausar emplazamientos de Display/DSP con CPL > $75 MXN.'
-    ]
-  }
-];
-
-export const WEEKLY_CADENCE: WeeklyCadenceStep[] = [
-  {
-    weekTitle: 'Lunes',
-    summary:
-      'Conciliar el modelo forecast 90D de MMP/GA4 vs. cohortes reales. Aplicar +20% / 72h en BAU CBO si CPA App <= $125 y CPA Web <= $250.'
-  },
-  {
-    weekTitle: 'Martes',
-    summary:
-      'Lanzar nuevas variaciones de concepto en la campana de Testing (10-15% budget); graduar Post IDs ganadores hacia BAU Smart Ads CBO.'
-  },
-  {
-    weekTitle: 'Miercoles',
-    summary:
-      'Revisar cortes automaticos de Meta MCP (Gates de $125-$250 MXN) y entregar briefs de iteracion de hooks 0-3s.'
-  },
-  {
-    weekTitle: 'Jueves',
-    summary:
-      'Auditar tendencias de CPA en L3/L5/L7 + CPC vs. promedio de cuenta; pausar Post IDs fatigados y verificar stock de tallas en el feed.'
-  },
-  {
-    weekTitle: 'Viernes',
-    summary:
-      'Verificar pacing de fin de semana/quincena, salud de audiencias de Carrito Abandonado 60D y alertas del reporte diario en Slack.'
   }
 ];
 
@@ -713,7 +570,7 @@ export const SIMULATOR_PRESETS: Record<PresetKey, SimulatorInputs> = {
     cpaAppMxn: 125,
     rmkt60dShareOfSalesPct: 26
   },
-  rmkt_aggressive: {
+  rmkt_focus: {
     totalBudgetMxn: 850000,
     captacionSharePct: 20,
     aovMxn: 850,

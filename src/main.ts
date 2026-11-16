@@ -96,10 +96,10 @@ function initApp(): void {
 
   const slideNames: string[] = [
     'A. Resumen Ejecutivo',
-    'B. Estructura & Plan ($850k)',
-    'C. Rmkt 60D & Sistema Creativo',
-    'D. Medicion 90D & Simulador',
-    'E. AI Workflow & Reporte Diario'
+    'B. Estimaciones ($850k)',
+    'C. Estrategia App (Obj 1 y 2)',
+    'D. Estrategia Web & Rmkt 60D',
+    'E. KPIs por Objetivo'
   ];
 
   let currentSlide = 0;
@@ -148,8 +148,8 @@ function initApp(): void {
   const hashMap: Record<string, number> = {
     '#executive-summary': 0,
     '#media-plan': 1,
-    '#remarketing-60d': 2,
-    '#web-simulator': 3,
+    '#app-strategy': 2,
+    '#web-strategy': 3,
     '#measurement-kpis': 4
   };
 
