@@ -13,15 +13,15 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
   {
     id: 'obj1',
     title: '1. Incremento de descargas de app',
-    block: 'Captacion (20%)',
+    block: 'Captación (20%)',
     platformsText: 'Facebook, Instagram, Google Ads, TikTok y DSP',
     sharePct: 12.0,
     monthlySpendMxn: 102000,
-    briefMetricName: 'Costo por instalacion (CPI)',
+    briefMetricName: 'Costo por instalación (CPI)',
     briefTargetLabel: '1,300 descargas',
     projectedResultLabel: '2,550 descargas (+ 1,148 registros app)',
     unitCostSummary: '$40.00 MXN CPI | 1.59% CTR | 6.00% CVR Descarga | 45.0% CVR Reg',
-    statusBadge: '196% vs Meta (+1,250)',
+    statusBadge: '196% vs. Meta (+1,250)',
     lines: [
       {
         id: '1.1',
@@ -92,7 +92,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '1.4',
         objectiveId: 'obj1',
-        name: '1.4 DSP Programatico (In-App Reach & Video)',
+        name: '1.4 DSP Programático (In-App Reach & Video)',
         platform: 'DSP',
         isRemarketing60d: false,
         monthlySpendMxn: 10200,
@@ -120,7 +120,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     platformsText: 'Google Ads, Facebook, Instagram, TikTok y DSP',
     sharePct: 45.0,
     monthlySpendMxn: 382500,
-    briefMetricName: 'Tasa de conversion en app',
+    briefMetricName: 'Tasa de conversión en app',
     briefTargetLabel: 'ROAS 6.8',
     projectedResultLabel: 'ROAS 6.80x ($2,601,000 MXN / 3,060 pedidos)',
     unitCostSummary: '2.40% CVR App | $125.00 CPA | AOV $850 | 1,285 Recompras',
@@ -151,7 +151,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '2.2',
         objectiveId: 'obj2',
-        name: '2.2 Facebook & Instagram Ads (Catalogo In-App)',
+        name: '2.2 Facebook & Instagram Ads (Catálogo In-App)',
         platform: 'Facebook + Instagram',
         isRemarketing60d: false,
         monthlySpendMxn: 99450,
@@ -195,7 +195,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '2.4',
         objectiveId: 'obj2',
-        name: '2.4 TikTok Ads (In-App Video Shopping & Catalog)',
+        name: '2.4 TikTok Ads (In-App Video Shopping & Catálogo)',
         platform: 'TikTok',
         isRemarketing60d: false,
         monthlySpendMxn: 57375,
@@ -223,7 +223,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     platformsText: 'Google Search Ads, Email Marketing, Facebook y Display',
     sharePct: 35.0,
     monthlySpendMxn: 297500,
-    briefMetricName: 'Tasa de conversion en sitio web',
+    briefMetricName: 'Tasa de conversión en sitio web',
     briefTargetLabel: 'ROAS 3.4',
     projectedResultLabel: 'ROAS 3.40x ($1,011,500 MXN / 1,190 pedidos)',
     unitCostSummary: '1.20% CVR Web | ROAS Google: 3.65x | CPA Rmkt 60D: $192.86',
@@ -232,7 +232,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '3.1',
         objectiveId: 'obj3',
-        name: '3.1 Google Search Ads (Brand + Generic Ofertas + Shopping)',
+        name: '3.1 Google Search Ads (Brand + Genérico Ofertas + Shopping)',
         platform: 'Google Search Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 133875,
@@ -254,7 +254,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '3.2',
         objectiveId: 'obj3',
-        name: '3.2 Facebook Ads (Catalogo Ventas Web - Prospeccion)',
+        name: '3.2 Facebook Ads (Catálogo Ventas Web - Prospección)',
         platform: 'Facebook',
         isRemarketing60d: false,
         monthlySpendMxn: 82625,
@@ -322,7 +322,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
   {
     id: 'obj4',
     title: '4. Incremento de registros en sitio',
-    block: 'Captacion (20%)',
+    block: 'Captación (20%)',
     platformsText: 'Google Display, Facebook Ads, Instagram Ads, DSP',
     sharePct: 8.0,
     monthlySpendMxn: 68000,
@@ -330,7 +330,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
     briefTargetLabel: '850 leads cualificados',
     projectedResultLabel: '1,236 leads cualificados (24,738 visitas)',
     unitCostSummary: '$55.02 MXN CPL | 5.00% CVR Visitantes a Registro',
-    statusBadge: '145% vs Meta (+386)',
+    statusBadge: '145% vs. Meta (+386)',
     lines: [
       {
         id: '4.1',
@@ -401,7 +401,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '4.4',
         objectiveId: 'obj4',
-        name: '4.4 DSP Programatico (Segmentacion Contextual Moda/Retail)',
+        name: '4.4 DSP Programático (Segmentación Contextual Moda/Retail)',
         platform: 'DSP',
         isRemarketing60d: false,
         monthlySpendMxn: 8160,
@@ -427,30 +427,30 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
 export const REMARKETING_60D_SEGMENTS: Remarketing60dSegment[] = [
   {
     segmentName: '1. Carrito Abandonado Reciente (Alta Urgencia)',
-    windowLabel: 'Dias 1 a 7 sin compra',
+    windowLabel: 'Días 1 a 7 sin compra',
     channels: 'Facebook/IG DPA + Google Display + Email (1h, 24h, 48h)',
     budgetMxn: 79481,
-    tactic: 'Recordatorio dinamico con la prenda/calzado exacto y aviso de "Ultimos pares en tu talla".',
+    tactic: 'Recordatorio dinámico con la prenda/calzado exacto y aviso de "Últimos pares en tu talla".',
     orders: 635,
     cpaMxn: 125.17,
     roas: 6.79
   },
   {
-    segmentName: '2. Carrito en Quincena (Desbloqueo por Nomina)',
-    windowLabel: 'Dias 8 a 30 sin compra',
+    segmentName: '2. Carrito en Quincena (Desbloqueo por Nómina)',
+    windowLabel: 'Días 8 a 30 sin compra',
     channels: 'Facebook/IG + Display + DSP + Email Quincena',
     budgetMxn: 61819,
-    tactic: 'Activacion en dias 15 y 30 del mes con "Envio Gratis hoy o 10% OFF extra para cerrar tu carrito".',
+    tactic: 'Activación en días 15 y 30 del mes con "Envío Gratis hoy o 10% OFF extra para cerrar tu carrito".',
     orders: 425,
     cpaMxn: 145.46,
     roas: 5.84
   },
   {
-    segmentName: '3. Reactivacion de Carrito Historico',
-    windowLabel: 'Dias 31 a 60 sin compra',
-    channels: 'Facebook/IG Catalog + DSP + Email Reactivacion',
+    segmentName: '3. Reactivación de Carrito Histórico',
+    windowLabel: 'Días 31 a 60 sin compra',
+    channels: 'Facebook/IG Catálogo + DSP + Email Reactivación',
     budgetMxn: 35325,
-    tactic: 'Muestra productos sustitutos de la misma talla/categoria con descuento final Outlet antes de salir de la ventana de 60 dias.',
+    tactic: 'Muestra productos sustitutos de la misma talla/categoría con descuento final Outlet antes de salir de la ventana de 60 días.',
     orders: 210,
     cpaMxn: 168.21,
     roas: 5.05
@@ -459,51 +459,51 @@ export const REMARKETING_60D_SEGMENTS: Remarketing60dSegment[] = [
 
 export const KPI_GROUP_CARDS: KpiGroupCard[] = [
   {
-    objectiveTitle: '1. Campanas de Descargas y Engagement App',
+    objectiveTitle: '1. Campañas de Descargas y Engagement App',
     platforms: 'Facebook, Instagram, Google Ads, TikTok y DSP',
     targetMeta: 'Meta: 1,300 descargas -> Logrado: 2,550 descargas ($102,000 MXN)',
     kpis: [
       {
         name: 'Tasa de clics en anuncios de descarga (CTR)',
         estimate: '1.59% promedio (42,492 clics)',
-        howWeAchieveIt: 'Videos cortos en TikTok/Reels y Google UAC mostrando descuentos reales por categoria familiar.'
+        howWeAchieveIt: 'Videos cortos en TikTok/Reels y Google UAC mostrando descuentos reales por categoría familiar.'
       },
       {
-        name: 'Tasa de conversion de descargas (Click-to-Install)',
+        name: 'Tasa de conversión de descargas (Click-to-Install)',
         estimate: '6.00% (2,550 descargas)',
         howWeAchieveIt: 'Fichas de App Store y Google Play optimizadas con capturas de ofertas y calificaciones.'
       },
       {
-        name: 'Tasa de conversion en registros de la app',
+        name: 'Tasa de conversión en registros de la app',
         estimate: '45.0% (1,148 registros in-app)',
         howWeAchieveIt: 'Login social en 1 clic e incentivo de $150 MXN en primera compra al registrarse en la app.'
       },
       {
-        name: 'Costo por instalacion (CPI)',
+        name: 'Costo por instalación (CPI)',
         estimate: '$40.00 MXN promedio',
         howWeAchieveIt: 'Concentrar 75% del presupuesto del objetivo en Google UAC ($37.09 CPI) y Meta ($40.57 CPI).'
       }
     ]
   },
   {
-    objectiveTitle: '2. Promocion de Ventas dentro de la App',
+    objectiveTitle: '2. Promoción de Ventas dentro de la App',
     platforms: 'Google Ads, Facebook, Instagram, TikTok y DSP',
     targetMeta: 'Meta: ROAS 6.8 -> Logrado: ROAS 6.80x ($2,601,000 MXN con $382,500 MXN)',
     kpis: [
       {
         name: 'Valor promedio de pedido (AOV) en la app',
         estimate: '$850 MXN base (meta operativa $950 MXN)',
-        howWeAchieveIt: 'Packs familiares y barra de "Envio Gratis en compras mayores a $899 MXN" en el carrito.'
+        howWeAchieveIt: 'Packs familiares y barra de "Envío Gratis en compras mayores a $899 MXN" en el carrito.'
       },
       {
-        name: 'Tasa de conversion de usuarios activos en la app',
+        name: 'Tasa de conversión de usuarios activos en la app',
         estimate: '2.40% global (3.85% en Remarketing 60D)',
-        howWeAchieveIt: 'Deep linking directo al producto o carrito abandonado (nunca al home generico).'
+        howWeAchieveIt: 'Deep linking directo al producto o carrito abandonado (nunca al home genérico).'
       },
       {
-        name: 'Numero de compras recurrentes',
+        name: 'Número de compras recurrentes',
         estimate: '1,285 pedidos recurrentes (42% del total app)',
-        howWeAchieveIt: 'Audiencias de compradores previos y carritos abandonados (1-60 dias) impactados en quincena.'
+        howWeAchieveIt: 'Audiencias de compradores previos y carritos abandonados (1-60 días) impactados en quincena.'
       }
     ]
   },
@@ -513,19 +513,19 @@ export const KPI_GROUP_CARDS: KpiGroupCard[] = [
     targetMeta: 'Meta: ROAS 3.4 -> Logrado: ROAS 3.40x ($1,011,500 MXN con $297,500 MXN)',
     kpis: [
       {
-        name: 'Tasa de conversion en el sitio web (CVR Web)',
+        name: 'Tasa de conversión en el sitio web (CVR Web)',
         estimate: '1.20% global (2.65% en Remarketing 60D)',
-        howWeAchieveIt: 'Trafico de alta intencion en Search y checkout agil con metodos de pago locales.'
+        howWeAchieveIt: 'Tráfico de alta intención en Search y checkout ágil con métodos de pago locales.'
       },
       {
-        name: 'Retorno sobre inversion publicitaria (ROAS) en Google Ads',
+        name: 'Retorno sobre inversión publicitaria (ROAS) en Google Ads',
         estimate: '3.65x en Google Search Ads',
-        howWeAchieveIt: 'Separacion de campanas Brand, Generic de ofertas ("outlet calzado") y Shopping con filtro de stock.'
+        howWeAchieveIt: 'Separación de campañas Brand, Genérico de ofertas ("outlet calzado") y Shopping con filtro de stock.'
       },
       {
-        name: 'Costo por adquisicion (CPA) en campanas de remarketing',
+        name: 'Costo por adquisición (CPA) en campañas de remarketing',
         estimate: '$192.86 MXN CPA ($190.67 Ads | $198.33 Email)',
-        howWeAchieveIt: 'Campana dedicada a usuarios que abandonaron el carrito sin comprar en los ultimos 60 dias.'
+        howWeAchieveIt: 'Campaña dedicada a usuarios que abandonaron el carrito sin comprar en los últimos 60 días.'
       }
     ]
   },
@@ -535,14 +535,14 @@ export const KPI_GROUP_CARDS: KpiGroupCard[] = [
     targetMeta: 'Meta: 850 leads cualificados -> Logrado: 1,236 leads ($68,000 MXN)',
     kpis: [
       {
-        name: 'Tasa de conversion de visitantes en registros',
+        name: 'Tasa de conversión de visitantes en registros',
         estimate: '5.00% (1,236 registros de 24,738 visitas)',
         howWeAchieveIt: 'Landing dedicada "Club OutletShop" con 15% OFF adicional en la primera compra.'
       },
       {
-        name: 'Numero de registros completados',
-        estimate: '1,236 leads cualificados (+45% vs meta)',
-        howWeAchieveIt: 'Formulario corto (correo, WhatsApp y categoria de interes: Mujer, Hombre, Ninos).'
+        name: 'Número de registros completados',
+        estimate: '1,236 leads cualificados (+45% vs. meta)',
+        howWeAchieveIt: 'Formulario corto (correo, WhatsApp y categoría de interés: Mujer, Hombre, Niños).'
       },
       {
         name: 'Costo por lead (CPL)',

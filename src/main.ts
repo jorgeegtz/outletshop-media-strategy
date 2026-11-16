@@ -41,7 +41,7 @@ function initApp(): void {
 
     if (valBudget) valBudget.textContent = formatMoney(inputs.totalBudgetMxn, 0);
     if (valSplit) {
-      valSplit.textContent = `${inputs.captacionSharePct}% Captacion / ${100 - inputs.captacionSharePct}% Ventas`;
+      valSplit.textContent = `${inputs.captacionSharePct}% Captación / ${100 - inputs.captacionSharePct}% Ventas`;
     }
     if (valRmkt) {
       valRmkt.textContent = `${inputs.rmkt60dShareOfSalesPct}% (${formatMoney(outputs.rmkt60dBudgetMxn, 0)} MXN)`;
@@ -97,7 +97,7 @@ function initApp(): void {
   const slideNames: string[] = [
     'A. Resumen Ejecutivo',
     'B. Estimaciones ($850k)',
-    'C. Estrategia App (Obj 1 y 2)',
+    'C. Estrategia App (Obj. 1 y 2)',
     'D. Estrategia Web & Rmkt 60D',
     'E. KPIs por Objetivo'
   ];

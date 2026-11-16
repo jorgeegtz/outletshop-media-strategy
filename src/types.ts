@@ -28,7 +28,7 @@ export interface MediaChannelLine {
 export interface ObjectiveGroup {
   id: ObjectiveId;
   title: string;
-  block: 'Captacion (20%)' | 'Ventas (80%)';
+  block: 'Captación (20%)' | 'Ventas (80%)';
   platformsText: string;
   sharePct: number;
   monthlySpendMxn: number;
