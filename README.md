@@ -1,6 +1,7 @@
 # OutletShop (Elogia) - Estrategia de Medios Online & Simulador Financiero
 
 **Autor:** Jorge E. Gutierrez Hernandez (`jorgeegtzhdz@gmail.com`)  
+**Live Interactive Web App (Vercel):** [https://outletshop-media-strategy.vercel.app](https://outletshop-media-strategy.vercel.app)  
 **Google Spreadsheet de Estimaciones:** [Abrir Google Sheet](https://docs.google.com/spreadsheets/d/13xVz5fn7o0RXlFqfymwfAVaJiwahTILCM3aRDT-GaNc/edit)
 
 ## Resumen del Caso Practico
