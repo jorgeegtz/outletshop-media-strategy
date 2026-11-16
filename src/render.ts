@@ -26,21 +26,37 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
       const rmktBadge = line.isRemarketing60d
         ? ` <span class="tag tag-purple">RMKT 60D</span>`
         : '';
+      const revMain = line.revenueMxn > 0 ? formatMoney(line.revenueMxn) : '-';
       return `
         <tr>
-          <td>${line.name}${rmktBadge}</td>
-          <td>${formatMoney(line.monthlySpendMxn)}</td>
-          <td>${line.sharePct.toFixed(1)}%</td>
-          <td>${formatMoney(line.cpmMxn, 2)}</td>
-          <td>${formatInt(line.impressions)}</td>
-          <td>${line.ctrPct.toFixed(2)}%</td>
-          <td>${formatInt(line.clicks)}</td>
-          <td>${formatMoney(line.cpcMxn, 2)}</td>
-          <td>${line.cvrPct.toFixed(2)}%</td>
-          <td>${formatInt(line.conversions)} ${line.conversionUnit}</td>
-          <td>${formatMoney(line.costPerResultMxn, 2)} ${line.costMetricType}</td>
-          <td>${formatMoney(line.revenueMxn)}</td>
-          <td><strong>${line.kpiHighlight}</strong></td>
+          <td class="campaign-col">${line.name}${rmktBadge}</td>
+          <td class="num-col">
+            <span class="cell-main">${formatMoney(line.monthlySpendMxn)}</span>
+            <span class="cell-sub">${line.sharePct.toFixed(1)}% del total</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${formatInt(line.impressions)}</span>
+            <span class="cell-sub">${formatMoney(line.cpmMxn, 2)} CPM</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${formatInt(line.clicks)}</span>
+            <span class="cell-sub">${line.ctrPct.toFixed(2)}% CTR | ${formatMoney(line.cpcMxn, 2)} CPC</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${line.cvrPct.toFixed(2)}%</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${formatInt(line.conversions)}</span>
+            <span class="cell-sub">${line.conversionUnit}</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${formatMoney(line.costPerResultMxn, 2)}</span>
+            <span class="cell-sub">${line.costMetricType}</span>
+          </td>
+          <td class="num-col">
+            <span class="cell-main">${revMain}</span>
+            <span class="cell-sub">${line.kpiHighlight}</span>
+          </td>
         </tr>
       `;
     })
@@ -58,6 +74,7 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
   const costType = group.lines[0].costMetricType;
   const unitLabel = group.lines[0].conversionUnit;
   const subtotalBg = group.block === 'Captación (20%)' ? '#eef2ff' : '#ecfdf5';
+  const revSubtotal = totalRev > 0 ? formatMoney(totalRev) : '-';
   const roasOrNote =
     totalRev > 0
       ? `<span class="status-ok">ROAS ${(totalRev / group.monthlySpendMxn).toFixed(2)}</span>`
@@ -67,23 +84,38 @@ function renderObjectiveRows(group: ObjectiveGroup): string {
 
   return `
     <tr class="row-anchor">
-      <td colspan="13"><strong>${group.title.toUpperCase()} (${group.sharePct.toFixed(1)}% = ${formatMoney(group.monthlySpendMxn)} MXN | Canales: ${group.platformsText} | Meta: ${group.briefTargetLabel})</strong></td>
+      <td colspan="8"><strong>${group.title.toUpperCase()} (${group.sharePct.toFixed(1)}% = ${formatMoney(group.monthlySpendMxn)} MXN | Canales: ${group.platformsText} | Meta: ${group.briefTargetLabel})</strong></td>
     </tr>
     ${rowsHtml}
     <tr style="background:${subtotalBg};font-weight:700;">
-      <td>Subtotal ${group.title}</td>
-      <td>${formatMoney(group.monthlySpendMxn)}</td>
-      <td>${group.sharePct.toFixed(1)}%</td>
-      <td>${formatMoney(blendedCpm, 2)}</td>
-      <td>${formatInt(totalImpr)}</td>
-      <td>${blendedCtr.toFixed(2)}%</td>
-      <td>${formatInt(totalClicks)}</td>
-      <td>${formatMoney(blendedCpc, 2)}</td>
-      <td>${blendedCvr.toFixed(2)}%</td>
-      <td>${formatInt(totalConv)} ${unitLabel}</td>
-      <td>${formatMoney(blendedCostPerResult, 2)} ${costType}</td>
-      <td>${formatMoney(totalRev)}</td>
-      <td>${roasOrNote}</td>
+      <td class="campaign-col">Subtotal ${group.title}</td>
+      <td class="num-col">
+        <span class="cell-main">${formatMoney(group.monthlySpendMxn)}</span>
+        <span class="cell-sub">${group.sharePct.toFixed(1)}% del total</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${formatInt(totalImpr)}</span>
+        <span class="cell-sub">${formatMoney(blendedCpm, 2)} CPM</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${formatInt(totalClicks)}</span>
+        <span class="cell-sub">${blendedCtr.toFixed(2)}% CTR | ${formatMoney(blendedCpc, 2)} CPC</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${blendedCvr.toFixed(2)}%</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${formatInt(totalConv)}</span>
+        <span class="cell-sub">${unitLabel}</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${formatMoney(blendedCostPerResult, 2)}</span>
+        <span class="cell-sub">${costType} promedio</span>
+      </td>
+      <td class="num-col">
+        <span class="cell-main">${revSubtotal}</span>
+        <span class="cell-sub">${roasOrNote}</span>
+      </td>
     </tr>
   `;
 }
@@ -291,40 +323,51 @@ export function renderAppShell(): string {
           </div>
 
           <div class="table-wrap">
-            <table class="data-table">
+            <table class="data-table media-plan-table">
               <thead>
                 <tr>
-                  <th>Objetivo / Plataforma / Campaña</th>
-                  <th>Inversión (MXN)</th>
-                  <th>% Total</th>
-                  <th>CPM</th>
-                  <th>Impresiones</th>
-                  <th>CTR</th>
-                  <th>Clics</th>
-                  <th>CPC</th>
-                  <th>CVR</th>
-                  <th>Resultados</th>
-                  <th>CPI / CPL / CPA</th>
-                  <th>Ingresos ($850 AOV)</th>
-                  <th>ROAS / KPI</th>
+                  <th class="campaign-col">Objetivo / Plataforma / Campaña</th>
+                  <th class="num-col">Inversión (MXN)</th>
+                  <th class="num-col">Impresiones &amp; CPM</th>
+                  <th class="num-col">Clics, CTR &amp; CPC</th>
+                  <th class="num-col">CVR</th>
+                  <th class="num-col">Resultados</th>
+                  <th class="num-col">Costo Unitario</th>
+                  <th class="num-col">Ingresos &amp; ROAS</th>
                 </tr>
               </thead>
               <tbody>
                 ${mediaPlanBody}
                 <tr class="row-goal">
-                  <td><strong>TOTAL PLAN DE MEDIOS</strong></td>
-                  <td><strong>$850,000</strong></td>
-                  <td><strong>100.0%</strong></td>
-                  <td><strong>$45.51</strong></td>
-                  <td><strong>18,676,625</strong></td>
-                  <td><strong>1.57%</strong></td>
-                  <td><strong>293,863</strong></td>
-                  <td><strong>$2.89</strong></td>
-                  <td><strong>1.87% (Ventas)</strong></td>
-                  <td><strong>4,250 Pedidos</strong></td>
-                  <td><strong>$160.00 CPA Ventas</strong></td>
-                  <td><strong>$3,612,500</strong></td>
-                  <td><strong>ROAS 4.25</strong></td>
+                  <td class="campaign-col"><strong>TOTAL PLAN DE MEDIOS</strong></td>
+                  <td class="num-col">
+                    <span class="cell-main">$850,000</span>
+                    <span class="cell-sub">100.0% del total</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">18,676,625</span>
+                    <span class="cell-sub">$45.51 CPM</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">293,863</span>
+                    <span class="cell-sub">1.57% CTR | $2.89 CPC</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">1.87%</span>
+                    <span class="cell-sub">en Ventas</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">4,250 pedidos</span>
+                    <span class="cell-sub">+2,550 inst. | +1,236 leads</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">$160.00</span>
+                    <span class="cell-sub">CPA Ventas</span>
+                  </td>
+                  <td class="num-col">
+                    <span class="cell-main">$3,612,500</span>
+                    <span class="cell-sub">ROAS Global 4.25</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
