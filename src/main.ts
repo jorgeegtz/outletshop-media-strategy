@@ -96,10 +96,10 @@ function initApp(): void {
 
   const slideNames: string[] = [
     'A. Resumen Ejecutivo',
-    'B. Plan de Medios ($850k)',
-    'C. Remarketing Carrito 60D',
-    'D. App/Web + Simulador TS',
-    'E. Medicion y KPIs'
+    'B. Estructura & Plan ($850k)',
+    'C. Rmkt 60D & Sistema Creativo',
+    'D. Medicion 90D & Simulador',
+    'E. AI Workflow & Reporte Diario'
   ];
 
   let currentSlide = 0;

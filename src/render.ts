@@ -1,4 +1,7 @@
 import {
+  AI_WORKFLOW_LAYERS,
+  CREATIVE_DECISION_GATES,
+  DAILY_REPORT_SAMPLE,
   GOOGLE_SHEET_URL,
   KPI_MATRIX_ROWS,
   OBJECTIVE_GROUPS,
@@ -122,7 +125,11 @@ export function renderSimulatorHero(out: SimulatorOutputs): string {
       <span>ROAS Rmkt 60D: <strong>${out.roasRmkt60d.toFixed(2)}x</strong> (${formatMoney(out.cpaRmkt60dMxn, 0)} CPA)</span>
     </div>
     <div style="font-size:12.5px;color:var(--text-secondary);margin-top:8px;">
-      <strong>Inversion:</strong> Obj 1: ${formatMoney(out.budgetObj1)} | Obj 2: ${formatMoney(out.budgetObj2)} | Obj 3: ${formatMoney(out.budgetObj3)} | Obj 4: ${formatMoney(out.budgetObj4)} (Incluye <strong>${formatMoney(out.rmkt60dBudgetMxn)}</strong> en Remarketing Carrito 60D).
+      <strong>Siguiente Paso:</strong> ${
+        out.allGoalsMet
+          ? 'Escalar +20% cada 72h en campanas BAU CBO que sostengan CPA App <= $125 y CPA Web <= $250.'
+          : 'Pausar Post IDs con tendencia L3/L5/L7 negativa y rotar presupuesto hacia Remarketing 60D y Google Search.'
+      }
     </div>
   `;
 }
@@ -157,6 +164,41 @@ export function renderAppShell(): string {
     `
   ).join('');
 
+  const gatesHtml = CREATIVE_DECISION_GATES.map(
+    (g) => `
+      <div class="gate-item ${g.isWin ? 'gate-win' : 'gate-kill'}">
+        <div class="gate-header"><strong>${g.title}</strong></div>
+        <p>${g.ruleText}</p>
+      </div>
+    `
+  ).join('');
+
+  const aiLayersHtml = AI_WORKFLOW_LAYERS.map(
+    (layer) => `
+      <tr>
+        <td><strong>${layer.layerName}</strong><br/><span class="text-muted">${layer.subLabel}</span></td>
+        <td>${layer.aiRole.map((item) => `- ${item}`).join('<br/>')}</td>
+        <td>${layer.humanRole.map((item) => `- ${item}`).join('<br/>')}</td>
+      </tr>
+    `
+  ).join('');
+
+  const dailyReportHtml = DAILY_REPORT_SAMPLE.map(
+    (row) => `
+      <tr>
+        <td><strong>${row.windowLabel}</strong></td>
+        <td>${row.spendMxn}</td>
+        <td>${row.installsAndCpi}</td>
+        <td>${row.leadsAndCpl}</td>
+        <td>${row.appOrdersAndCpa}</td>
+        <td><span class="${row.statusType === 'ok' ? 'status-ok' : 'status-warn'}">${row.appRoas}</span></td>
+        <td>${row.webOrdersAndCpa}</td>
+        <td><span class="${row.statusType === 'ok' ? 'status-ok' : 'status-warn'}">${row.webRoas}</span></td>
+        <td>${row.rmkt60dCpa}</td>
+      </tr>
+    `
+  ).join('');
+
   const kpiMatrixHtml = KPI_MATRIX_ROWS.map(
     (r) => `
       <tr>
@@ -184,16 +226,16 @@ export function renderAppShell(): string {
         <div class="brand">
           <div class="brand-logo">O</div>
           <div>
-            <div class="brand-title">OutletShop Media Plan <span class="badge-pill">TypeScript App | Caso Elogia</span></div>
-            <div class="brand-sub">por Jorge Gutierrez</div>
+            <div class="brand-title">OutletShop Assessment</div>
+            <div class="brand-sub">by Jorge Gutierrez</div>
           </div>
         </div>
         <nav class="nav-links" aria-label="Deck Sections">
           <a href="#executive-summary" data-slide="0" class="active">A. Resumen Ejecutivo</a>
-          <a href="#media-plan" data-slide="1">B. Plan de Medios ($850k)</a>
-          <a href="#remarketing-60d" data-slide="2">C. Remarketing Carrito 60D</a>
-          <a href="#web-simulator" data-slide="3">D. App/Web + Simulador TS</a>
-          <a href="#measurement-kpis" data-slide="4">E. Medicion y KPIs</a>
+          <a href="#media-plan" data-slide="1">B. Estructura &amp; Plan ($850k)</a>
+          <a href="#remarketing-60d" data-slide="2">C. Rmkt 60D &amp; Sistema Creativo</a>
+          <a href="#web-simulator" data-slide="3">D. Medicion 90D &amp; Simulador</a>
+          <a href="#measurement-kpis" data-slide="4">E. AI Workflow &amp; Reporte Diario</a>
         </nav>
       </div>
     </header>
@@ -203,14 +245,14 @@ export function renderAppShell(): string {
       <div class="deck-slide active" data-slide="0">
         <section id="executive-summary" class="hero">
           <div class="hero-single">
-            <div class="eyebrow">A. RESUMEN EJECUTIVO | ESTRATEGIA DE MEDIOS ONLINE OUTLETSHOP (MEXICO)</div>
-            <h1>Estrategia <span class="gradient-text">20% Captacion / 80% Ventas + Remarketing 60D</span> para Generar $3.61M MXN (ROAS 4.25x)</h1>
+            <div class="eyebrow">A. RESUMEN EJECUTIVO | SISTEMA DE MEDIOS BASADO EN RESULTADOS PARA OUTLETSHOP</div>
+            <h1>Sistema Full-Funnel <span class="gradient-text">20% Captacion / 80% Ventas + Remarketing 60D</span> para Escalar a ROAS 6.8x App y 3.4x Web</h1>
             <p class="hero-lead">
-              Distribucion estrategica de los <strong>$850,000 MXN mensuales</strong> (AOV de <strong>$850 MXN</strong>) que cumple exactamente el <strong>ROAS 6.8x en App</strong> y <strong>ROAS 3.4x en Web</strong> mediante un motor dedicado de <strong>Remarketing de Carritos Abandonados en los ultimos 60 dias</strong> (excluyendo compradores), mientras sobrecumple la captacion con <strong>2,550 descargas (+96%)</strong> y <strong>1,236 leads cualificados (+45%)</strong>.
+              En lugar de quemar los $850,000 MXN desde el Dia 1 sin senal, este sistema arranca con un Warmup controlado (Dias 1-5), protege el capital con stop-losses automaticos via Meta MCP, recupera carritos abandonados de los ultimos 60 dias (4 quincenas en Mexico) y escala presupuestos +20% cada 72 horas solo cuando el CPA y el ROAS cumplen meta.
             </p>
             <div class="hero-cta-row">
               <a href="${GOOGLE_SHEET_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-                Abrir Google Sheet de Estimaciones
+                Abrir Google Sheet Ejecutivo
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </a>
             </div>
@@ -218,19 +260,35 @@ export function renderAppShell(): string {
 
           <div class="grid-2" style="margin-top: 24px;">
             <div class="panel panel-accent">
-              <h3>1. Bloque Captacion: 20% Budget ($170,000 MXN)</h3>
+              <h3>1. Estructura de Cuenta y Pacing Basado en Resultados</h3>
               <ul class="styled-list">
-                <li><strong>Obj. 1 - Descargas y Engagement App (12% | $102,000 MXN):</strong> Entrega <strong>2,550 descargas</strong> a <strong>$40.00 MXN CPI</strong> (+96% vs. meta de 1,300) y <strong>1,148 registros in-app</strong> (45% CVR).</li>
-                <li><strong>Obj. 4 - Registros en Sitio Web (8% | $68,000 MXN):</strong> Entrega <strong>1,236 leads cualificados</strong> a <strong>$55.02 MXN CPL</strong> (+45% vs. meta de 850) con una CVR de visita a registro del <strong>5.00%</strong>.</li>
-                <li><strong>Sinergia con Remarketing:</strong> Cada usuario que instala la app o se registra en la web y agrega productos al carrito sin comprar entra inmediatamente a las audiencias de <strong>Remarketing 60D</strong>.</li>
+                <li><strong>Warmup (Dias 1-5):</strong> Arranque controlado en <code>Descargas + Registro</code> (2 campanas CBO separadas por OS: 65% Android / 35% iOS) y <code>Leads Web</code> para construir senal sin desperdiciar presupuesto.</li>
+                <li><strong>Motor BAU (Dia 6+):</strong> 85-90% del presupuesto de ventas en Smart Ads CBO (4 Concept Ad Groups) + Google UAC/Search, apuntando a <strong>$125 CPA en App (ROAS 6.8x)</strong> y <strong>$250 CPA en Web (ROAS 3.4x)</strong>.</li>
+                <li><strong>Que Esperar:</strong> Escalamiento controlado de <strong>+20% cada 72h</strong> manteniendo el split 20% Captacion ($170k) / 80% Ventas ($680k).</li>
               </ul>
             </div>
             <div class="panel">
-              <h3>2. Bloque Ventas + Remarketing 60D: 80% Budget ($680,000 MXN)</h3>
+              <h3>2. Testing Creativo (10-15%) y Control de Fatiga</h3>
               <ul class="styled-list">
-                <li><strong>Obj. 2 - Ventas dentro de la App (45% | $382,500 MXN):</strong> Logra <strong>ROAS 6.80x</strong> ($2,601,000 MXN / <strong>3,060 pedidos</strong> a <strong>$125.00 MXN CPA global</strong>). Incluye <strong>$95,625 MXN</strong> en <strong>Remarketing Carrito Abandonado 60D In-App</strong> (850 pedidos a <strong>$112.50 CPA y 7.56x ROAS</strong>).</li>
-                <li><strong>Obj. 3 - Ventas en Sitio Web (35% | $297,500 MXN):</strong> Logra <strong>ROAS 3.40x</strong> ($1,011,500 MXN / <strong>1,190 pedidos</strong> a <strong>$250.00 MXN CPA global</strong>). Incluye <strong>$81,000 MXN</strong> en <strong>Remarketing Carrito Abandonado 60D Web + Email</strong> (420 pedidos a <strong>$192.86 CPA y 4.41x ROAS</strong>).</li>
-                <li><strong>Peso del Motor Remarketing 60D:</strong> Con el 20.8% del presupuesto total ($176,625 MXN), recupera <strong>1,270 carritos abandonados</strong> generando <strong>$1,079,500 MXN (ROAS 6.11x)</strong>.</li>
+                <li><strong>Pool de Testing (10-15% del Spend):</strong> Campana separada con 10-15 videos prioritarios/semana agrupados por concepto + experimento <strong>CBO vs. ABO</strong> para validar entrega justa.</li>
+                <li><strong>Kill Gates Automatizados:</strong> Reglas en Meta / MCP pausan hooks debiles a las 2,000 impresiones y cortan anuncios sin conversion entre 1x y 2x CPA ($125-$250 MXN).</li>
+                <li><strong>Que Esperar:</strong> Deteccion temprana de fatiga monitoreando <strong>tendencias L3/L5/L7 de CPA + CPC &gt; promedio de cuenta</strong> antes de que caiga el ROAS.</li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>3. Remarketing Carrito 60D y Medicion (Forecast 90D)</h3>
+              <ul class="styled-list">
+                <li><strong>Audiencia Carrito Abandonado 60D:</strong> Captura usuarios con <code>AddToCart</code> en los ultimos 60 dias excluyendo <code>Purchase 60D</code> (cubriendo 4 quincenas en Mexico), recuperando <strong>1,270 pedidos a $139.07 CPA (ROAS 6.11x)</strong>.</li>
+                <li><strong>Modelo Forecast 90D:</strong> Cruza el CVR rolling de 90 dias y tasa de devoluciones desde MMP + GA4 para proyectar el ROAS y LTV de recompra el mismo dia.</li>
+                <li><strong>Que Esperar:</strong> Visibilidad intraday de si el gasto de hoy cumple con el ROAS 6.8x en App y 3.4x en Web.</li>
+              </ul>
+            </div>
+            <div class="panel panel-accent">
+              <h3>4. AI en el Workflow y Resultado a 30 Dias</h3>
+              <ul class="styled-list">
+                <li><strong>Operacion Automatizada:</strong> Meta MCP ejecuta cortes de stop-loss/fatiga y publica cada manana en Slack el <strong>Daily Performance Report</strong> (Ayer, L3 y L7: Gasto, CPI, CPL, CPA Rmkt 60D y ROAS).</li>
+                <li><strong>Gobernanza Humana:</strong> 100% control humano en exclusiones de compradores (CAPI/MMP), validacion de stock de tallas y aprobacion de saltos de presupuesto.</li>
+                <li><strong>Que Esperar:</strong> Cierre mensual con <strong>$3,612,500 MXN en ingresos (ROAS 4.25x blended)</strong>, <strong>2,550 descargas</strong> y <strong>1,236 leads cualificados</strong>.</li>
               </ul>
             </div>
           </div>
@@ -263,6 +321,16 @@ export function renderAppShell(): string {
               </tbody>
             </table>
           </div>
+
+          <div class="assumptions-banner">
+            <div class="assumptions-title">Supuestos Base del Modelo (Alineados con Google Sheet):</div>
+            <div class="assumptions-pills">
+              <span><strong>Atribucion:</strong> 7-Day Click (7DC) + MMP (AppsFlyer/Adjust) + GA4</span>
+              <span><strong>OS Split App:</strong> 65% Android / 35% iOS (2 CBOs Separadas)</span>
+              <span><strong>Budget Split:</strong> 20% Captacion / 80% Ventas (85-90% BAU Scale / 10-15% Testing)</span>
+              <span><strong>Reverse-Funnel Targets:</strong> AOV $850 | $125 CPA App (6.8x) | $250 CPA Web (3.4x) | $40 CPI | $55 CPL</span>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -271,9 +339,9 @@ export function renderAppShell(): string {
         <section id="media-plan" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCION B | PLAN DE MEDIOS Y ESTIMACIONES MATEMATICAS ($850,000 MXN)</span>
+              <span class="section-tag">SECCION B | ESTRUCTURA DE CUENTA Y PLAN DE MEDIOS ($850,000 MXN)</span>
               <h2>Desglose Mensual por Objetivo, Plataforma y Campanas de Remarketing 60D</h2>
-              <p>Las lineas 2.3, 3.3 y 3.4 corresponden especificamente a las campanas de Remarketing de Carritos Abandonados en los ultimos 60 dias sin compra.</p>
+              <p>Estructura con separacion por OS en App (Android 65% / iOS 35%), division 85-90% BAU Scale vs. 10-15% Testing y lineas dedicadas de Remarketing Carrito 60D (2.3, 3.3 y 3.4).</p>
             </div>
           </div>
 
@@ -316,40 +384,43 @@ export function renderAppShell(): string {
               </tbody>
             </table>
           </div>
+
+          <h3 class="sub-heading">Cuando Cambiamos de Fase y Escalamos (Pacing Mensual)</h3>
+          <div class="timeline-grid">
+            <div class="timeline-step">
+              <div class="step-badge">DIAS 1-5 | WARMUP DE SENAL</div>
+              <h4>Captacion + Feed Setup ($15,000/d Total)</h4>
+              <p>Arrancamos las 2 CBOs de App Install (Android + iOS), Leads Web (Club Outlet) y Search Brand/Generic para poblar las audiencias de <code>AddToCart</code> y <code>Registrations</code>.</p>
+              <div class="trigger-pill"><strong>Trigger:</strong> Pasar a escala BAU en Dia 6 tras validar +350 descargas, +200 leads y tracking CAPI/MMP sin discrepancia.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-badge">DIA 6+ | ESCALA BASADA EN RESULTADOS</div>
+              <h4>Smart Ads CBO BAU (85-90% Scale / 10-15% Test)</h4>
+              <p>Activamos el motor completo de Ventas App (ROAS 6.8x) y Ventas Web (ROAS 3.4x) junto con el experimento paralelo <strong>CBO vs. ABO</strong> en Testing.</p>
+              <div class="trigger-pill"><strong>Trigger:</strong> Escalar +20% cada 72h hacia el tope de $850k solo si CPA App &lt;= $125 y CPA Web &lt;= $250.</div>
+            </div>
+            <div class="timeline-step">
+              <div class="step-badge">DIAS 14-16 Y 28-30 | PICOS DE QUINCENA</div>
+              <h4>Empuje Remarketing Carrito 60D ($176.6k/mes)</h4>
+              <p>En dias de pago de nomina en Mexico, incrementamos la puja en las audiencias de Carrito Abandonado 60D (App + Web + Email) para capturar los 1,270 pedidos recuperados.</p>
+              <div class="trigger-pill"><strong>Guardrail:</strong> Exclusion automatica en tiempo real de cualquier comprador de los ultimos 60 dias (<code>Purchase 60D</code>).</div>
+            </div>
+          </div>
         </section>
       </div>
 
-      <!-- SLIDE 3: C. MOTOR DE REMARKETING CARRITO ABANDONADO 60 DIAS -->
+      <!-- SLIDE 3: C. REMARKETING 60D Y SISTEMA CREATIVO -->
       <div class="deck-slide" data-slide="2">
         <section id="remarketing-60d" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCION C | ESTRATEGIA DE REMARKETING: CARRITOS ABANDONADOS (ULTIMOS 60 DIAS SIN COMPRA)</span>
-              <h2>Arquitectura de Remarketing 60D: Capturando 4 Quincenas en Mexico</h2>
-              <p>En moda y calzado en Mexico, el 75% de los carritos se abandonan esperando el pago de quincena (dias 15 y 30). Una ventana de 60 dias cubre 4 ciclos de nomina completos.</p>
+              <span class="section-tag">SECCION C | REMARKETING CARRITO ABANDONADO 60D + SISTEMA DE TESTING CREATIVO</span>
+              <h2>Motor de Remarketing 60D (4 Quincenas) y Arbol de Decision Creativo</h2>
+              <p>Recuperacion de carritos abandonados en los ultimos 60 dias sin compra ($176,625 MXN -> ROAS 6.11x) combinada con testing creativo (10-15% del spend), reglas Meta MCP y control de fatiga L3/L5/L7.</p>
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="panel panel-accent">
-              <h3>Regla de Audiencia y Exclusion Estricta (App + Web)</h3>
-              <ul class="styled-list">
-                <li><strong>Regla de Inclusion (60 Dias):</strong> Usuarios que dispararon <code>af_add_to_cart</code> en la App (MMP SDK) o <code>add_to_cart</code> en el Sitio Web (GA4 / Meta Pixel + CAPI) en los <strong>ultimos 60 dias</strong>.</li>
-                <li><strong>Regla de Exclusion en Tiempo Real:</strong> <code>EXCLUDE Purchase (ultimos 60 dias)</code> sincronizado tanto de Web como de App via Server-Side CAPI y MMP Postbacks para nunca perseguir a un usuario que ya compro en el otro canal.</li>
-                <li><strong>Presupuesto Asignado:</strong> <strong>$176,625 MXN mensuales</strong> ($95,625 en App + $57,200 en Ads Web + $23,800 en Email CRM = 26% del presupuesto de ventas).</li>
-              </ul>
-            </div>
-
-            <div class="panel">
-              <h3>Por que Resuelve los KPIs del Brief</h3>
-              <ul class="styled-list">
-                <li><strong>KPI Explicito del Objetivo 3:</strong> El brief pide medir el <em>"Costo por adquisicion (CPA) en campanas de remarketing"</em>. Mientras la prospeccion fria en Web cuesta <strong>$423.72 MXN CPA</strong>, nuestra campana de Remarketing 60D logra <strong>$190.67 MXN CPA en Ads (ROAS 4.46x)</strong> y <strong>$198.33 MXN CPA en Email (ROAS 4.29x)</strong>, promediando <strong>$192.86 MXN CPA</strong>.</li>
-                <li><strong>En la App (Objetivo 2):</strong> El Remarketing 60D In-App con <strong>Deferred Deep Linking</strong> directo al carrito pre-cargado convierte al <strong>3.85%</strong> con un <strong>CPA de $112.50 MXN (ROAS 7.56x)</strong>, impulsando el ROAS global de la App a <strong>6.80x</strong>.</li>
-              </ul>
-            </div>
-          </div>
-
-          <h3 class="sub-heading">Segmentacion Escalonada de los 60 Dias (3 Tiers por Recencia y Quincena)</h3>
+          <h3 class="sub-heading" style="margin-top: 8px;">1. Segmentacion de Carritos Abandonados en los Ultimos 60 Dias (Excluyendo Compradores)</h3>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
@@ -375,28 +446,71 @@ export function renderAppShell(): string {
               </tbody>
             </table>
           </div>
+
+          <div class="grid-2" style="margin-top: 24px;">
+            <div class="panel">
+              <h3>2. Campana Separada de Testing Creativo (10-15% del Presupuesto)</h3>
+              <p>Todo creativo nuevo entra en una campana de Testing separada para no desestabilizar el aprendizaje del BAU Smart Ads CBO.</p>
+              <ul class="styled-list">
+                <li><strong>Balance Presupuesto vs. Volumen:</strong> Con el 10-15% del presupuesto (~$20,000-$28,000 MXN/semana), no lanzamos 50 anuncios a la vez sin gasto suficiente. Probamos <strong>10-15 videos/carruseles prioritarios por semana (3 conceptos)</strong> para que cada variacion reciba al menos 2x CPA de prueba.</li>
+                <li><strong>Agrupacion por Concepto:</strong> 4-5 variaciones de hook (0-3s) comparten un mismo Concept Ad Group (ej. <em>"Unboxing Familiar $850"</em>, <em>"Liquidacion Calzado Ninos"</em>, <em>"Pares de Marca a Mitad de Precio"</em>).</li>
+                <li><strong>Experimento CBO vs. ABO:</strong> Ejecutamos un split controlado para validar si ABO entrega una lectura inicial mas justa a nuevos hooks que CBO.</li>
+              </ul>
+            </div>
+
+            <div class="panel">
+              <h3>Arbol de Decision Automatizado (Meta Rules + AI / Meta MCP)</h3>
+              <div class="gate-list">
+                ${gatesHtml}
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-3" style="margin-top: 18px;">
+            <div class="mini-card">
+              <h4>1. Como Graduan los Ganadores</h4>
+              <p>Extraemos el <strong>Meta Post ID</strong> ganador y lo duplicamos dentro del BAU Smart Ads CBO sin editar el anuncio, preservando el social proof (comentarios/likes) y evitando resetear la fase de aprendizaje.</p>
+            </div>
+            <div class="mini-card">
+              <h4>2. Como Escalamos Ganadores</h4>
+              <p><strong>Vertical:</strong> Subimos el presupuesto BAU CBO un <strong>+20% cada 72h</strong> solo si el CPA App se mantiene &lt;= $125 MXN (ROAS 6.8x) y el CPA Web &lt;= $250 MXN (ROAS 3.4x).<br/>
+              <strong>Horizontal:</strong> Cada ganador dispara 3-5 nuevos hooks de 0-3s y versiones para Reels/TikTok.</p>
+            </div>
+            <div class="mini-card">
+              <h4>3. Fatiga Creativa (Tendencia L3 / L5 / L7)</h4>
+              <p><strong>Trigger:</strong> Monitoreamos la tendencia rolling de <strong>CPA en L3, L5 y L7</strong> junto con el CPC. Si el CPA sube consecutivamente en L3/L5/L7 Y el <strong>CPC del anuncio supera el promedio de la cuenta</strong>, pausamos el Post ID via Meta MCP y rotamos variantes frescas.</p>
+            </div>
+          </div>
         </section>
       </div>
 
-      <!-- SLIDE 4: D. ESTRATEGIA APP/WEB + SIMULADOR TYPESCRIPT -->
+      <!-- SLIDE 4: D. MEDICION 90D + SIMULADOR TYPESCRIPT -->
       <div class="deck-slide" data-slide="3">
         <section id="web-simulator" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCION D | ARQUITECTURA FULL-FUNNEL + SIMULADOR INTERACTIVO EN TYPESCRIPT</span>
-              <h2>Arquitectura por Canal + Simulador Dinamico de Presupuesto y ROAS</h2>
-              <p>Simula en tiempo real el impacto de mover el presupuesto, el AOV, el CPI/CPA y el peso de la campana de Remarketing de Carritos Abandonados 60D.</p>
+              <span class="section-tag">SECCION D | MODELO FORECAST 90 DIAS, ATRIBUCION HOLISTICA Y SIMULADOR TS</span>
+              <h2>Medicion: Forecast Rolling de 90 Dias + Simulador Financiero en Vivo</h2>
+              <p>Como proyectamos el ROAS y el LTV de recompra el mismo dia unificando MMP (AppsFlyer/Adjust), GA4, Meta CAPI y CRM.</p>
             </div>
           </div>
 
-          <div class="grid-2">
+          <div class="callout-box callout-warning">
+            <strong>Por que Usamos un Forecast de 90 Dias en lugar de Esperar al Cierre de Mes:</strong> Muchos usuarios que descargan la App (Obj. 1), dejan su correo en el Club Outlet (Obj. 4) o agregan al carrito tardan entre 7 y 30 dias (hasta la siguiente quincena) en completar su compra. Evaluar campanas solo con compras de Dia 0 subestima el ROAS real. Nuestro modelo diario proyecta el cierre de cada cohorte desde el Dia 1.
+          </div>
+
+          <div class="grid-2" style="margin-top: 20px;">
             <div class="panel">
-              <h3>Arquitectura App (Obj. 1 y 2) &amp; Sitio Web (Obj. 3 y 4)</h3>
+              <h3>Modelo Automatizado de Forecast Rolling (90D)</h3>
+              <p>Cada manana extraemos los ultimos <strong>90 dias de conversiones</strong> de nuestro MMP y GA4 para calcular el CVR rolling real (Install-a-Compra, Lead-a-Compra y Carrito-a-Compra) y lo aplicamos al gasto en vivo de hoy:</p>
+              <div class="formula-display">
+                <code>Pedidos Proyectados Hoy = (Visitas + Carritos 60D) x CVR Rolling 90D x Ajuste Devoluciones</code><br/>
+                <code>ROAS Proyectado Hoy = (Pedidos Proyectados x AOV $850) / Gasto de Hoy</code>
+              </div>
               <ul class="styled-list">
-                <li><strong>Obj. 1 - Descargas App ($102,000 MXN):</strong> Google UAC Install ($40,800), Meta App Install ($35,700), TikTok UGC ($15,300) y DSP ($10,200). Gancho de <em>"$150 MXN de regalo en tu 1ra compra en App"</em> para lograr <strong>2,550 descargas ($40 CPI)</strong> y <strong>1,148 registros in-app</strong>.</li>
-                <li><strong>Obj. 2 - Ventas In-App ($382,500 MXN -> ROAS 6.8x):</strong> Combina Google UAC for Action ($130,050), Meta Advantage+ App ($99,450), TikTok Video Shopping ($57,375) y la campana de <strong>Remarketing Carrito 60D In-App ($95,625)</strong> para generar <strong>3,060 pedidos a $125 CPA</strong>.</li>
-                <li><strong>Obj. 3 - Ventas Sitio Web ($297,500 MXN -> ROAS 3.4x):</strong> Google Search Brand + Generic + Shopping ($133,875 a <strong>3.65x ROAS</strong>), Facebook Prospeccion ($82,625) y el motor <strong>Remarketing Carrito 60D Web + Email ($81,000 a $192.86 CPA)</strong> para lograr <strong>1,190 pedidos</strong>.</li>
-                <li><strong>Obj. 4 - Registros Sitio Web ($68,000 MXN):</strong> Lead Magnet <em>"Club VIP OutletShop 15% OFF"</em> en Facebook ($27,200), Instagram ($20,400), Display ($12,240) y DSP ($8,160), generando <strong>1,236 leads cualificados a $55.02 CPL</strong>.</li>
+                <li><strong>Paso 1 (CVR Rolling 90D por Canal):</strong> Benchmark diario desde MMP (2.40% CVR en App) y GA4 (1.20% CVR en Web; 3.06% en Remarketing Carrito 60D).</li>
+                <li><strong>Paso 2 (Ajuste por Cancelacion / Devolucion de Talla):</strong> Descuenta el % historico de cambios o devoluciones en calzado/ropa para que el ROAS proyectado refleje ingreso neto real.</li>
+                <li><strong>Paso 3 (Extension de LTV y Recompra):</strong> Rastrea la tasa de segunda compra a 30-60 dias (las <strong>1,285 compras recurrentes en App</strong>) para escalar las campanas que traen clientes repetitivos.</li>
               </ul>
             </div>
 
@@ -404,10 +518,10 @@ export function renderAppShell(): string {
               <div class="forecast-header">
                 <div>
                   <h3 style="margin-bottom:4px;">Simulador TypeScript de Medios &amp; Remarketing 60D</h3>
-                  <p style="font-size:13px;color:var(--text-secondary);">Mueve los parametros para recalcular los 4 objetivos:</p>
+                  <p style="font-size:13px;color:var(--text-secondary);">Simula presupuesto, split, AOV y peso de Remarketing 60D:</p>
                 </div>
                 <div class="preset-row">
-                  <button type="button" class="preset-btn active" data-preset="baseline">Modelo Base (20/80)</button>
+                  <button type="button" class="preset-btn active" data-preset="baseline">Modelo Base ($850k)</button>
                   <button type="button" class="preset-btn" data-preset="aov_boost">AOV Upsell ($950)</button>
                   <button type="button" class="preset-btn" data-preset="rmkt_aggressive">+Peso Rmkt 60D (35%)</button>
                 </div>
@@ -454,20 +568,98 @@ export function renderAppShell(): string {
               </div>
             </div>
           </div>
+
+          <h3 class="sub-heading">Stack Holistico de Datos: MMP + Plataformas de Medios + Backend CRM</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Fuente de Datos</th>
+                  <th>Rol en la Medicion</th>
+                  <th>Decisiones que Gobierna</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1. MMP (AppsFlyer / Adjust + SKAN 4.0)</strong><br/><span class="text-muted">(Fuente Primaria para App: Obj. 1 y Obj. 2)</span></td>
+                  <td>Mide cohortes por fecha de instalacion, CPI real ($40 MXN), registro in-app (45%), compras recurrentes (1,285) y deduplica Meta vs. Google UAC vs. TikTok vs. DSP.</td>
+                  <td>
+                    - Alimenta el modelo diario de Forecast 90D para la App<br/>
+                    - Valida el ROAS 6.8x por sistema operativo (Android vs. iOS)<br/>
+                    - Autoriza el escalamiento de +20% cada 72h en BAU App
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>2. Meta Ads, Google Ads &amp; TikTok (Pixel + CAPI)</strong><br/><span class="text-muted">(Senal Intraday de Medios y Creatividad)</span></td>
+                  <td>Entrega gasto en tiempo real, CPM, CTR, CPC, Hook Rate (3s), tamanos de audiencia de Carrito Abandonado 60D y conversiones en ventana 7DC.</td>
+                  <td>
+                    - Dispara las reglas automaticas de stop-loss (Gates 1, 2 y 3)<br/>
+                    - Detecta fatiga creativa (tendencia L3/L5/L7 + CPC &gt; promedio)<br/>
+                    - Sincroniza la exclusion automatica de compradores (<code>Purchase 60D</code>)
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>3. Vista Holistica (MMP + GA4 + Backend/CRM Unidos)</strong><br/><span class="text-muted">(Capa Operativa Unificada)</span></td>
+                  <td>Une las cohortes de MMP y GA4 con el desglose creativo de Meta/Google y los flujos de Email Marketing.</td>
+                  <td>
+                    - Muestra con exactitud que <strong>creativos, categorias de calzado/ropa y ventanas de remarketing 60D</strong> generan clientes recurrentes y margen neto real
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
 
-      <!-- SLIDE 5: E. MEDICION, KPIS Y OPTIMIZACION -->
+      <!-- SLIDE 5: E. AI EN EL WORKFLOW, REPORTE DIARIO Y KPIS -->
       <div class="deck-slide" data-slide="4">
         <section id="measurement-kpis" class="section-card">
           <div class="section-header">
             <div>
-              <span class="section-tag">SECCION E | MATRIZ DE KPIS OBLIGATORIOS, ATRIBUCION Y ROADMAP</span>
-              <h2>Control de los 13 KPIs del Brief y Reglas de Optimizacion</h2>
-              <p>Gobernanza de datos entre MMP (AppsFlyer/Adjust), Google Analytics 4 (GA4), Meta CAPI y CRM para evitar canibalizacion entre Web y App.</p>
+              <span class="section-tag">SECCION E | AI EN EL WORKFLOW, REPORTE DIARIO SLACK Y MATRIZ DE KPIS</span>
+              <h2>AI en el Workflow, Gobernanza Humana y Reporte Diario Automatizado</h2>
+              <p>Donde la IA y Meta MCP automatizan la ejecucion y el reporte diario, y donde el humano mantiene el control estricto del capital y la atribucion.</p>
             </div>
           </div>
 
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Capa del Workflow</th>
+                  <th>Donde Corren la IA y la Automatizacion</th>
+                  <th>Donde el Humano Mantiene el Control y Por Que</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${aiLayersHtml}
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub-heading">Reporte Diario Automatizado de Performance en Slack (Meta/Google + MMP/GA4 90D Forecast)</h3>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Fecha / Ventana</th>
+                  <th>Gasto Total</th>
+                  <th>Descargas (CPI)</th>
+                  <th>Leads Web (CPL)</th>
+                  <th>Pedidos App (CPA)</th>
+                  <th>ROAS App (Meta 6.8x)</th>
+                  <th>Pedidos Web (CPA)</th>
+                  <th>ROAS Web (Meta 3.4x)</th>
+                  <th>CPA Rmkt 60D (ROAS)</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${dailyReportHtml}
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="sub-heading">Matriz de Control de los 13 KPIs Obligatorios del Brief</h3>
           <div class="table-wrap">
             <table class="data-table">
               <thead>
@@ -485,7 +677,7 @@ export function renderAppShell(): string {
             </table>
           </div>
 
-          <h3 class="sub-heading">Roadmap Operativo de Ejecucion (Mes 1 - 4 Semanas)</h3>
+          <h3 class="sub-heading">Cadencia Operativa Semanal (Lunes a Viernes)</h3>
           <div class="cadence-bar">
             ${cadenceHtml}
           </div>
@@ -503,10 +695,10 @@ export function renderAppShell(): string {
     <footer class="footer">
       <div class="container footer-inner">
         <div>
-          <strong>Caso Practico OutletShop (Elogia) - TypeScript Edition</strong> | por Jorge Gutierrez (<a href="mailto:jorgeegtzhdz@gmail.com">jorgeegtzhdz@gmail.com</a>)
+          <strong>OutletShop Assessment</strong> | by Jorge Gutierrez (<a href="mailto:jorgeegtzhdz@gmail.com">jorgeegtzhdz@gmail.com</a>)
         </div>
         <div>
-          <a href="${GOOGLE_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir Google Sheet de Estimaciones</a>
+          <a href="${GOOGLE_SHEET_URL}" target="_blank" rel="noopener noreferrer">Abrir Google Sheet Ejecutivo</a>
         </div>
       </div>
     </footer>

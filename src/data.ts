@@ -1,4 +1,7 @@
 import {
+  AiWorkflowLayer,
+  DailyReportRow,
+  DecisionGate,
   KpiRow,
   ObjectiveGroup,
   PresetKey,
@@ -27,7 +30,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '1.1',
         objectiveId: 'obj1',
-        name: '1.1 Google Ads (UAC Install & Engagement)',
+        name: '1.1 Google Ads (UAC Install & Engagement - Android + iOS)',
         platform: 'Google Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 40800,
@@ -49,7 +52,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '1.2',
         objectiveId: 'obj1',
-        name: '1.2 Meta Ads (FB + IG App Install Ofertas)',
+        name: '1.2 Meta Ads (2 CBOs Separadas: Android 65% + iOS 35%)',
         platform: 'Meta Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 35700,
@@ -152,7 +155,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '2.2',
         objectiveId: 'obj2',
-        name: '2.2 Meta Ads (FB + IG Advantage+ App Sales)',
+        name: '2.2 Meta Ads (Smart Ads CBO BAU 85% + Testing CBO/ABO 15%)',
         platform: 'Meta Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 99450,
@@ -255,7 +258,7 @@ export const OBJECTIVE_GROUPS: ObjectiveGroup[] = [
       {
         id: '3.2',
         objectiveId: 'obj3',
-        name: '3.2 Facebook Ads (Advantage+ Shopping Web - Prospeccion)',
+        name: '3.2 Facebook Ads (Smart Ads CBO BAU 85% + Testing 15%)',
         platform: 'Meta Ads',
         isRemarketing60d: false,
         monthlySpendMxn: 82625,
@@ -476,6 +479,112 @@ export const REMARKETING_60D_TIERS: Remarketing60dTier[] = [
   }
 ];
 
+export const CREATIVE_DECISION_GATES: DecisionGate[] = [
+  {
+    title: 'Gate 1: >= 2,000 Impresiones | Filtro Temprano de Hook',
+    ruleText:
+      'Regla: Hook Rate (3s) < 25% Y Outbound CTR < 0.8% -> PAUSAR via Meta Rule / MCP. AI etiqueta "Weak Hook" para reescribir los primeros 3 segundos.',
+    isWin: false
+  },
+  {
+    title: 'Gate 2: $125-$185 MXN Gasto (1x-1.5x CPA App) | Filtro de Intencion',
+    ruleText:
+      'Regla: 0 AddToCart / Registros -> PAUSAR. Excepcion de paciencia: si Hook Rate > 35% y Hold Rate > 15%, permitir hasta 2x CPA ($250 MXN) antes de cortar.',
+    isWin: false
+  },
+  {
+    title: 'Gate 3: $250-$310 MXN Gasto (2x-2.5x CPA) | Hard Stop-Loss',
+    ruleText:
+      'Regla: 0 Compras a $250 MXN en App ($500 MXN en Web) O CPA > 2x objetivo -> HARD KILL automatico via Meta Rule / MCP.',
+    isWin: false
+  },
+  {
+    title: 'Gate 4: Dias 5-7 | Graduacion de Ganadores via Post ID',
+    ruleText:
+      'Regla: ROAS >= 6.8x en App (CPA <= $125) o ROAS >= 3.4x en Web (CPA <= $250) -> GANADOR. Graduar via Post ID hacia BAU Smart Ads CBO sin resetear el aprendizaje.',
+    isWin: true
+  }
+];
+
+export const AI_WORKFLOW_LAYERS: AiWorkflowLayer[] = [
+  {
+    layerName: '1. Automatizacion en Plataformas',
+    subLabel: '(Smart Ads CBO, UAC & Advantage+)',
+    aiRole: [
+      'Distribucion dinamica de presupuesto entre los 4 Concept Ad Groups dentro del BAU Smart Ads CBO.',
+      'Entrega liquida en Advantage+ Placements y Google UAC (separando CBO Android 65% e iOS 35%).',
+      'Enriquecimiento de senales server-side via Meta CAPI y MMP Postbacks.'
+    ],
+    humanRole: [
+      'Atribucion y Exclusiones: Fijar ventana 7DC y excluir en tiempo real compradores de los ultimos 60 dias (Purchase 60D) en App y Web.',
+      'Pacing Basado en Resultados: El humano controla el paso de Warmup (Dias 1-5) a BAU (Dia 6+) y la regla de escalar +20% cada 72h.'
+    ]
+  },
+  {
+    layerName: '2. Testing Creativo y Control de Fatiga',
+    subLabel: '(Meta MCP + Reglas Automatizadas)',
+    aiRole: [
+      'Ejecuta los cortes de stop-loss en la campana de Testing (10-15% del budget) en los Gates 1, 2 y 3.',
+      'Detecta fatiga creativa cuando el CPA en L3 / L5 / L7 sube de forma consecutiva Y el CPC supera el promedio de la cuenta.',
+      'Mineria de hooks e iteracion de guiones UGC familiares con IA.'
+    ],
+    humanRole: [
+      'Consistencia de Precios y Stock: Verificar que las ofertas y tallas anunciadas coincidan 100% con el inventario real de OutletShop.',
+      'Direccion Creativa: Decidir que angulos ganadores reciben nuevas grabaciones con creadores y sesiones de catalogo.'
+    ]
+  },
+  {
+    layerName: '3. Forecast 90D y Reporte Diario Slack',
+    subLabel: '(Pipeline Automatizado MMP + GA4 + Meta)',
+    aiRole: [
+      'Extrae cada manana el gasto de Meta/Google/TikTok/DSP + CVR rolling de 90 dias y tasa de devolucion/cancelacion desde MMP y GA4.',
+      'Publica automaticamente en Slack el Daily Performance & Projected ROAS Report (Yesterday, L3 y L7).'
+    ],
+    humanRole: [
+      'Diagnostico de Causa Raiz: Distinguir entre fatiga creativa real y fallos tecnicos (pasarela de pago, caida de Deep Links o quiebre de tallas clave) antes de tocar presupuestos.'
+    ]
+  }
+];
+
+export const DAILY_REPORT_SAMPLE: DailyReportRow[] = [
+  {
+    windowLabel: 'Dia 12 (Ayer)',
+    spendMxn: '$28,500',
+    installsAndCpi: '92 ($38.50 CPI)',
+    leadsAndCpl: '44 ($52.80 CPL)',
+    appOrdersAndCpa: '108 ($121.10 CPA)',
+    appRoas: '7.02x',
+    webOrdersAndCpa: '41 ($244.00 CPA)',
+    webRoas: '3.48x',
+    rmkt60dCpa: '$134.20 (6.33x)',
+    statusType: 'ok'
+  },
+  {
+    windowLabel: 'L3 Dias (Prom/d)',
+    spendMxn: '$28,333',
+    installsAndCpi: '86 ($39.80 CPI)',
+    leadsAndCpl: '42 ($54.50 CPL)',
+    appOrdersAndCpa: '102 ($124.80 CPA)',
+    appRoas: '6.81x',
+    webOrdersAndCpa: '40 ($249.50 CPA)',
+    webRoas: '3.41x',
+    rmkt60dCpa: '$138.90 (6.12x)',
+    statusType: 'ok'
+  },
+  {
+    windowLabel: 'L7 Dias (Prom/d)',
+    spendMxn: '$26,400',
+    installsAndCpi: '79 ($41.60 CPI)',
+    leadsAndCpl: '38 ($56.90 CPL)',
+    appOrdersAndCpa: '91 ($129.40 CPA)',
+    appRoas: '6.57x',
+    webOrdersAndCpa: '36 ($258.10 CPA)',
+    webRoas: '3.29x',
+    rmkt60dCpa: '$144.50 (5.88x)',
+    statusType: 'warn'
+  }
+];
+
 export const KPI_MATRIX_ROWS: KpiRow[] = [
   {
     objectiveLabel: '1. Descargas App',
@@ -493,9 +602,9 @@ export const KPI_MATRIX_ROWS: KpiRow[] = [
     ],
     ssotSource: 'MMP (AppsFlyer / Adjust) + Consolas App Store / Play Store',
     optimizationRules: [
-      'Pausar anuncios con CTR < 1.0% tras 3,000 impresiones.',
-      'Si CPI supera $52 MXN en un ad set tras $1,500 MXN de gasto, rotar presupuesto a Google UAC y Meta ganadores.',
-      'Incentivar registro in-app con cupon bloqueado hasta login.'
+      'Separar campanas CBO por sistema operativo (65% Android / 35% iOS) para evitar que Android acapare la entrega por menor CPM.',
+      'Pausar via Meta MCP anuncios con Hook Rate < 25% y CTR < 0.8% tras 2,000 impresiones.',
+      'Incentivar registro in-app con cupon de bienvenida bloqueado hasta completar login.'
     ]
   },
   {
@@ -513,9 +622,9 @@ export const KPI_MATRIX_ROWS: KpiRow[] = [
     ],
     ssotSource: 'MMP In-App Events (af_add_to_cart, af_purchase) + Backend App',
     optimizationRules: [
-      'Deep linking obligatorio al carrito o producto exacto en la campana de Carrito Abandonado 60D.',
-      'Exclusion automatica en tiempo real (MMP Postback) de cualquier usuario que dispare af_purchase en los ultimos 60 dias.',
-      'Barra de "Envio Gratis desde $899 MXN" en carrito para subir AOV.'
+      'Escalar presupuesto BAU +20% cada 72h unicamente cuando el CPA in-app se mantenga <= $125 MXN y el modelo 90D proyecte ROAS >= 6.8x.',
+      'Pausar Post IDs fatigados cuando el CPA suba en L3/L5/L7 Y el CPC supere el promedio de la cuenta.',
+      'Deep linking obligatorio al carrito pre-cargado en la campana de Carrito Abandonado 60D.'
     ]
   },
   {
@@ -534,7 +643,7 @@ export const KPI_MATRIX_ROWS: KpiRow[] = [
     ssotSource: 'GA4 + Google Ads + Meta CAPI + Plataforma Email',
     optimizationRules: [
       'Segmentar la audiencia add_to_cart 60D (excluyendo purchase 60D) en 3 ventanas (1-7d, 8-30d, 31-60d) alineadas con las 4 quincenas en Mexico.',
-      'Excluir en campanas Web a usuarios que ya compraron en la App (via listas CAPI/MMP) para evitar desperdicio.',
+      'Excluir en campanas Web a usuarios que ya compraron en la App (via listas CAPI/MMP) para evitar canibalizacion.',
       'Excluir SKUs con menos de 60% de tallas en stock del feed de Shopping y DPA.'
     ]
   },
@@ -561,24 +670,29 @@ export const KPI_MATRIX_ROWS: KpiRow[] = [
 
 export const WEEKLY_CADENCE: WeeklyCadenceStep[] = [
   {
-    weekTitle: 'Semana 1: Tracking & Audiencias 60D',
+    weekTitle: 'Lunes',
     summary:
-      'Auditoria MMP SDK, GA4, Meta CAPI y creacion de las audiencias retrospectivas de Carrito Abandonado 60D (excluyendo compradores 60D) en App y Web.'
+      'Conciliar el modelo forecast 90D de MMP/GA4 vs. cohortes reales. Aplicar +20% / 72h en BAU CBO si CPA App <= $125 y CPA Web <= $250.'
   },
   {
-    weekTitle: 'Semana 2: Traccion & Quincena 1',
+    weekTitle: 'Martes',
     summary:
-      'Escalamiento de Obj. 1 ($40 CPI) y Obj. 4 ($55 CPL). Activacion del Tier 1 y Tier 2 de Remarketing Carrito 60D coincidiendo con la primera quincena del mes.'
+      'Lanzar nuevas variaciones de concepto en la campana de Testing (10-15% budget); graduar Post IDs ganadores hacia BAU Smart Ads CBO.'
   },
   {
-    weekTitle: 'Semana 3: Optimizacion ROAS & Tallas',
+    weekTitle: 'Miercoles',
     summary:
-      'Rebalanceo hacia SKUs con >70% de tallas disponibles. Ajuste de frecuencia en el Tier 3 (31-60d) para sostener ROAS 6.8x en App y 3.4x en Web.'
+      'Revisar cortes automaticos de Meta MCP (Gates de $125-$250 MXN) y entregar briefs de iteracion de hooks 0-3s.'
   },
   {
-    weekTitle: 'Semana 4: Quincena 2 & Cierre Mensual',
+    weekTitle: 'Jueves',
     summary:
-      'Push + Blast de Remarketing 60D de fin de mes para recuperar 1,270 carritos ($1.08M MXN) y cerrar el mes en 4,250 pedidos totales ($3.61M MXN).'
+      'Auditar tendencias de CPA en L3/L5/L7 + CPC vs. promedio de cuenta; pausar Post IDs fatigados y verificar stock de tallas en el feed.'
+  },
+  {
+    weekTitle: 'Viernes',
+    summary:
+      'Verificar pacing de fin de semana/quincena, salud de audiencias de Carrito Abandonado 60D y alertas del reporte diario en Slack.'
   }
 ];
 

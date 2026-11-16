@@ -56,6 +56,32 @@ export interface Remarketing60dTier {
   roas: number;
 }
 
+export interface DecisionGate {
+  title: string;
+  ruleText: string;
+  isWin: boolean;
+}
+
+export interface DailyReportRow {
+  windowLabel: string;
+  spendMxn: string;
+  installsAndCpi: string;
+  leadsAndCpl: string;
+  appOrdersAndCpa: string;
+  appRoas: string;
+  webOrdersAndCpa: string;
+  webRoas: string;
+  rmkt60dCpa: string;
+  statusType: 'ok' | 'warn';
+}
+
+export interface AiWorkflowLayer {
+  layerName: string;
+  subLabel: string;
+  aiRole: string[];
+  humanRole: string[];
+}
+
 export interface KpiRow {
   objectiveLabel: string;
   kpiList: string[];

@@ -83,5 +83,24 @@
       ["3. Incentivar Ventas en Sitio Web (35% - $297,500 MXN)", "Google Search Ads, Email Marketing, Facebook, Display", "- Google Search ($133,875): Brand + Generic + Shopping.\n- Facebook Advantage+ Prospeccion ($82,625).\n- Campana Rmkt Carrito Abandonado 60D ($57,200): FB DPA + Google Display.\n- Email Marketing Rmkt 60D ($23,800).", "- Intencion activa en Google Search.\n- Audiencia Rmkt Carrito Abandonado 60D Web: evento add_to_cart (ultimos 60 dias, cubriendo 4 quincenas en MX) EXCLUYENDO purchase (ultimos 60 dias).", "- Ventana 1-7d: Urgencia ('Ultimos pares en tu talla').\n- Ventana 8-30d: Envio gratis / 10% OFF extra.\n- Ventana 31-60d: Reactivacion de quincena con rebaja final Outlet + sustitutos.", "- El motor de Remarketing 60D Web (FB DPA + Display + Email = $81,000 MXN) recupera 420 pedidos a un CPA de $192.86 MXN (ROAS 4.41x), logrando el ROAS 3.40x global web."],
       ["4. Incrementar Registros en Sitio Web (8% - $68,000 MXN)", "Google Display, Facebook Ads, Instagram Ads, DSP", "- Meta Conversion Leads / Website Registration (70% del objetivo).\n- Google Display Custom Intent & Similar Audiences (18%).\n- Programmatic DSP Contextual en sitios de estilo de vida y ofertas (12%).", "- Hombres y mujeres 18-50 en Mexico que visitan sitios de moda/retail pero aun no estan registrados en OutletShop.\n- Lookalikes 1%-2% de registrados que compraron en los primeros 7 dias.", "- Lead Magnet: 'Unete al Club VIP OutletShop: Recibe 15% OFF adicional + Acceso Secreto a Ventas Nocturnas'.\n- Formulario ligero de 2 pasos (Email + WhatsApp + Categoria favorita).", "- Validacion en tiempo real del correo para asegurar 1,236 leads cualificados (+45% vs meta de 850).\n- Si el lead agrega al carrito y no compra, entra en automatico al flujo de Remarketing 60D."]
     ]
+  },
+  {
+    "op": "write",
+    "range": "4_Medicion_Optimizacion!A19",
+    "data": [
+      ["", "", "", "", "", ""],
+      ["SECCION B: REPORTE DIARIO AUTOMATIZADO DE PERFORMANCE EN SLACK (META/GOOGLE + MMP/GA4 90D FORECAST)", "", "", "", "", ""],
+      ["Ventana de Tiempo", "Gasto Total", "Descargas (CPI)", "Leads Web (CPL)", "Pedidos App (ROAS)", "Pedidos Web (ROAS) + CPA Rmkt 60D"],
+      ["Dia 12 (Ayer)", "$28,500 MXN", "92 ($38.50 CPI)", "44 ($52.80 CPL)", "108 ($121.10 CPA | ROAS 7.02x)", "41 ($244.00 CPA | ROAS 3.48x) | Rmkt 60D: $134.20 CPA"],
+      ["L3 Dias (Promedio/dia)", "$28,333 MXN", "86 ($39.80 CPI)", "42 ($54.50 CPL)", "102 ($124.80 CPA | ROAS 6.81x)", "40 ($249.50 CPA | ROAS 3.41x) | Rmkt 60D: $138.90 CPA"],
+      ["L7 Dias (Promedio/dia)", "$26,400 MXN", "79 ($41.60 CPI)", "38 ($56.90 CPL)", "91 ($129.40 CPA | ROAS 6.57x)", "36 ($258.10 CPA | ROAS 3.29x) | Rmkt 60D: $144.50 CPA"],
+      ["", "", "", "", "", ""],
+      ["SECCION C: ARBOL DE DECISION CREATIVO (10-15% TESTING POOL + CBO vs. ABO) Y REGLAS DE FATIGA (L3/L5/L7 + CPC)", "", "", "", "", ""],
+      ["Gate / Regla Automatizada", "Condicion de Disparo (Meta Rules / MCP)", "Accion Automatica", "Control Humano / Guardrail", "Impacto en Pacing (+20% / 72h)", ""],
+      ["Gate 1: >= 2,000 Impresiones", "Hook Rate (3s) < 25% Y Outbound CTR < 0.8%", "PAUSAR via Meta Rule / MCP; AI etiqueta Weak Hook", "Reescribir primeros 3s conservando el cuerpo del video", "Evita quemar budget de testing en hooks debiles", ""],
+      ["Gate 2: $125-$185 MXN Gasto (1x-1.5x CPA)", "0 AddToCart o 0 Registros In-App", "PAUSAR (Excepcion: permitir 2x CPA si Hook >35% y Hold >15%)", "Validar que el Deep Link abra la ficha correcta", "Filtra anuncios con clics curiosos sin intencion de compra", ""],
+      ["Gate 3: $250-$310 MXN Gasto (2x-2.5x CPA)", "0 Compras o CPA > 2x Objetivo ($250 App / $500 Web)", "HARD KILL automatico via Meta Rule / MCP", "Verificar que la talla anunciada siga en stock", "Protege el ROAS 6.8x en App y 3.4x en Web", ""],
+      ["Gate 4: Dias 5-7 (Graduacion + Fatiga L3/L5/L7)", "Ganador: CPA <= $125 App / <= $250 Web. Fatiga: CPA sube en L3/L5/L7 Y CPC > Promedio Cuenta", "Graduar via Post ID a BAU Smart Ads CBO; pausar Post IDs fatigados", "Escalar BAU +20% cada 72h solo si Forecast 90D mantiene ROAS en meta", "Mantiene social proof y escala sin resetear aprendizaje", ""]
+    ]
   }
 ]
